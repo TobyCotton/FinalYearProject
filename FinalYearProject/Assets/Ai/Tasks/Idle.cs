@@ -11,11 +11,16 @@ public class Idle : Task//Currently the same as walk will edit once designated i
     {
         m_Weight = 0;
         m_Task = "Idle";
-        m_PreRequisite = "none";
         m_destination = destination;
         m_agent = agent;
     }
-
+    public Idle()
+    {
+        m_Weight = 0;
+        m_Task = "Walk";
+        m_destination = Vector3.zero;
+        m_agent = null;
+    }
     public override void StartExecution()
     {
         m_agent.SetDestination(m_destination);

@@ -5,9 +5,16 @@ using UnityEngine.AI;
 
 public class Task
 {
-    protected string m_PreRequisite;
-    protected string m_Task;
-    protected int m_Weight;
+    public List<string> m_PreRequisite;
+    public string m_Task;
+    public int m_Weight;
+    public string m_effect;
+
+    public Task()
+    {
+        m_PreRequisite = new List<string>();
+    }
     public virtual void StartExecution() { }
     public virtual bool Executing() { return false; }
+    public virtual Vector3 getDestination() { return Vector3.zero; }
 }
