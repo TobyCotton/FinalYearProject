@@ -15,6 +15,6 @@ public class Task
         m_PreRequisite = new List<string>();
     }
     public virtual void StartExecution() { }
-    public virtual bool Executing() { return false; }
+    public virtual bool Executing() { return true; }
     public virtual Vector3 getDestination() { return Vector3.zero; }
 }

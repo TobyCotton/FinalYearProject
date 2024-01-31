@@ -22,8 +22,8 @@ public class Walk : Task
         m_Weight = 0;
         m_Task = "Walk";
         m_destination = Vector3.zero;
-        m_agent = null;
-        m_agent.stoppingDistance = 0;
+        //m_agent = null;
+        //m_agent.stoppingDistance = 1;
         m_effect = "InRange";
     }
     public override void StartExecution()

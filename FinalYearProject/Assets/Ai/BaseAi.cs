@@ -5,30 +5,16 @@ using UnityEngine.AI;
 
 public class BaseAi : MonoBehaviour
 {
-    public List<Task> m_availableActions;
+    public List<Task> m_availableActions = new List<Task>();
     public NavMeshAgent m_agent;
-    public List<Task> m_tasks;
-    protected List<Item> m_Items;
+    public List<Task> m_tasks = new List<Task>();
+    protected List<Item> m_Items = new List<Item>();
     protected bool m_AllConditionsMet;
-    void Start()
+    public BaseAi() 
     {
-        m_tasks = new List<Task>();
-        m_Items = new List<Item>();
-        m_availableActions = new List<Task>();
         m_AllConditionsMet = false;
         m_availableActions.Add(new Walk());
         m_availableActions.Add(new Idle());
-        //for(int i = 0;i < 5;i++)
-        //{
-        //    if (m_agent != null)
-        //    {
-        //        m_tasks.Add(new Walk(m_agent, new Vector3(Random.Range(1, 40), 0, Random.Range(1, 40))));
-        //    }
-        //}
-        //if (m_agent != null)
-        //{
-        //    m_tasks[m_tasks.Count - 1].StartExecution();
-        //}
     }
     // Update is called once per frame
     protected void Update()
