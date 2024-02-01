@@ -362,6 +362,7 @@
 "Assets/Ai/Tasks/GetHoe.cs"
 "Assets/Ai/Tasks/HarvestWheat.cs"
 "Assets/Ai/Tasks/Idle.cs"
+"Assets/Ai/Tasks/Idle1.cs"
 "Assets/Ai/Tasks/Task.cs"
 "Assets/Ai/Tasks/Walk.cs"
 "Assets/Buildings/BlacksmithScript.cs"

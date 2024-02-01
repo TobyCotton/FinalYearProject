@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,6 +18,7 @@ public class BaseAi : MonoBehaviour
         m_AllConditionsMet = false;
         m_availableActions.Add(new Walk());
         m_availableActions.Add(new Idle());
+        m_availableActions.Add(new Idle1());
     }
     // Update is called once per frame
     protected void Update()
@@ -63,10 +66,10 @@ public class BaseAi : MonoBehaviour
         m_tasks[m_tasks.Count - 1].StartExecution();
         m_taskListOptions.Clear();
     }
-    protected List<Task> FillTaskCopy(List<Task> toCopy)
+    protected List<Task> FillTaskCopy(Task[] toCopy)
     {
         List<Task> temp = new List<Task>();
-        for(int i = 0;i < toCopy.Count; i++)
+        for(int i = 0;i < toCopy.Length; i++)
         {
             temp.Add(toCopy[i]);
         }
