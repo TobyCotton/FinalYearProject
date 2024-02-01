@@ -16,18 +16,22 @@ public class FarmerAi : BaseAi
     }
     private void Start()
     {
-        AddToTaskList(new HarvestWheat(m_agent));
+        AddToTaskList(new HarvestWheat(m_agent),0);
         m_tasks[m_tasks.Count - 1].StartExecution();
     }
     void Update()
     {
         base.Update();
     }
-    public void AddToTaskList(Task goal)
+    public void AddToTaskList(Task goal,int listIncrement)
     {
         if (goal.m_PreRequisite.Count == 0)
         {
-            m_tasks.Add(goal);
+            if (m_taskListOptions.Count == 0)
+            {
+                m_taskListOptions.Add(new List<Task>());
+            }
+            m_taskListOptions[listIncrement].Add(goal);
             return;
         }
         for (int i = 0; i < goal.m_PreRequisite.Count; i++)
@@ -41,35 +45,61 @@ public class FarmerAi : BaseAi
             }
             if(i == 0)//There is a prerequisite we have to do so add the goal only do on the first time through
             {
-                m_tasks.Add(goal);
+                if (m_taskListOptions.Count == 0)
+                {
+                    m_taskListOptions.Add(new List<Task>());
+                }
+                m_taskListOptions[listIncrement].Add(goal);
             }
+            string lastKnown = "None";
+            int found = listIncrement;
+            List<Task> Temptasks = new List<Task>();
+            Temptasks = FillTaskCopy(m_taskListOptions[found]);
             for (int j = 0; j < m_availableActions.Count; j++)
             {
                 if (goal.m_PreRequisite[i] == m_availableActions[j].m_effect)
                 {
+                    if(found >= listIncrement+1)
+                    {
+                        m_taskListOptions.Add(Temptasks);
+                    }
                     switch (m_availableActions[j].m_Task)
                     {
                         case "GetHoe":
-                            AddToTaskList(new GetHoe(m_agent));
+                            AddToTaskList(new GetHoe(m_agent),found);
                             break;
                         case "HarvestWheat":
-                            AddToTaskList(new HarvestWheat(m_agent));
+                            AddToTaskList(new HarvestWheat(m_agent), found);
                             break;
                         case "Walk":
                             Vector3 destination = goal.getDestination();
                             if (destination != Vector3.zero)
                             {
-                                AddToTaskList(new Walk(m_agent,destination));
+                                AddToTaskList(new Walk(m_agent,destination), found);
                             }
                             else
                             {
                                 Debug.Log("Walk failed in farmer");
                             }
                             break;
+                        case "Idle":
+                            destination = goal.getDestination();
+                            if (destination != Vector3.zero)
+                            {
+                                AddToTaskList(new Idle(m_agent, destination), found);
+                            }
+                            else
+                            {
+                                Debug.Log("Idle failed in farmer");
+                            }
+                            break;
                     }
+                    found++;
+                    lastKnown = m_availableActions[j].m_Task;
                 }
             }
         }
+        SetTaskList();
     }
     public bool CheckHoe() { return m_HasHoe; }
 }

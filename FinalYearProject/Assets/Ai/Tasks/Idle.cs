@@ -9,17 +9,19 @@ public class Idle : Task//Currently the same as walk will edit once designated i
     private Vector3 m_destination;
     public Idle(NavMeshAgent agent, Vector3 destination)
     {
-        m_Weight = 0;
+        m_Weight = 2;
         m_Task = "Idle";
         m_destination = destination;
         m_agent = agent;
+        m_effect = "InRange";
     }
     public Idle()
     {
-        m_Weight = 0;
-        m_Task = "Walk";
+        m_Weight = 2;
+        m_Task = "Idle";
         m_destination = Vector3.zero;
         m_agent = null;
+        m_effect = "InRange";
     }
     public override void StartExecution()
     {

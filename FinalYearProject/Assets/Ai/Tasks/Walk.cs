@@ -10,7 +10,7 @@ public class Walk : Task
 
     public Walk(NavMeshAgent agent, Vector3 destination, int StoppingDistance = 0)
     {
-        m_Weight = 0;
+        m_Weight = 1;
         m_Task = "Walk";
         m_destination = destination;
         m_agent = agent;
@@ -19,7 +19,7 @@ public class Walk : Task
     }
     public Walk()
     {
-        m_Weight = 0;
+        m_Weight = 1;
         m_Task = "Walk";
         m_destination = Vector3.zero;
         //m_agent = null;
