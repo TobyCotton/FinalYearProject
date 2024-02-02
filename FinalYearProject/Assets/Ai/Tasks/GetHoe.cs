@@ -7,6 +7,7 @@ public class GetHoe : Task
 {
     private NavMeshAgent m_agent;
     private Vector3 m_destination;
+    private BaseAi m_ai;
     public GetHoe(NavMeshAgent agent)
     {
         m_Weight = 0;
@@ -15,6 +16,7 @@ public class GetHoe : Task
         m_effect = "Hoe";
         m_destination = Vector3.zero;
         m_agent = agent;
+        m_ai = null;
     }
     public GetHoe()
     {
@@ -24,9 +26,11 @@ public class GetHoe : Task
         m_effect = "Hoe";
         m_destination = Vector3.zero;
         m_agent = null;
+        m_ai = null;
     }
-    public override Vector3 getDestination()
+    public override Vector3 getDestination(BaseAi ai)
     {
+        m_ai = ai;
         BlacksmithScript[] blacksmiths = Object.FindObjectsOfType<BlacksmithScript>();
         float shortestDistance = Mathf.Infinity;
         Vector3 currentPosition = m_agent.transform.position;
@@ -40,5 +44,13 @@ public class GetHoe : Task
             }
         }
         return m_destination;
+    }
+    public override bool Executing()
+    {
+        if (m_ai)
+        {
+            m_ai.m_Items.Add(new Item("Hoe"));
+        }
+        return true; 
     }
 }

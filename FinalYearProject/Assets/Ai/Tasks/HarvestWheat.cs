@@ -15,6 +15,7 @@ public class HarvestWheat : Task
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Hoe");
         m_effect = "WheatHarvested";
+        m_priority = 2.0f;
     }
     public HarvestWheat()
     {
@@ -23,21 +24,15 @@ public class HarvestWheat : Task
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Hoe");
         m_effect = "WheatHarvested";
+        m_priority = 2.0f;
     }
-    public override Vector3 getDestination()
+    public override Vector3 getDestination(BaseAi ai)
     {
-        FarmScript[] farms = Object.FindObjectsOfType<FarmScript>();
-        float shortestDistance = Mathf.Infinity;
-        Vector3 currentPosition = m_agent.transform.position;
-        for (int i = 0; i < farms.Length; i++)
+        if(ai.m_work)
         {
-            float distance = Vector3.Distance(currentPosition, farms[i].transform.position);
-            if (distance < shortestDistance)
-            {
-                shortestDistance = distance;
-                m_destination = farms[i].transform.position;
-            }
+            m_destination = ai.m_work.transform.position;
+            return m_destination;
         }
-        return m_destination;
+        return Vector3.zero;
     }
 }

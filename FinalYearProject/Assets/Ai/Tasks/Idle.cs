@@ -14,6 +14,7 @@ public class Idle : Task//Currently the same as walk will edit once designated i
         m_destination = destination;
         m_agent = agent;
         m_effect = "InRange";
+        m_priority = 0;
     }
     public Idle()
     {
@@ -22,6 +23,7 @@ public class Idle : Task//Currently the same as walk will edit once designated i
         m_destination = Vector3.zero;
         m_agent = null;
         m_effect = "InRange";
+        m_priority = 0;
     }
     public override void StartExecution()
     {

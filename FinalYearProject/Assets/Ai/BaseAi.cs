@@ -8,17 +8,34 @@ using UnityEngine.AI;
 public class BaseAi : MonoBehaviour
 {
     public List<Task> m_availableActions = new List<Task>();
+    public List<Task> m_goals = new List<Task>();
     public NavMeshAgent m_agent;
+    public Building m_work;
     public List<Task> m_tasks = new List<Task>();
     protected List<List<Task>> m_taskListOptions = new List<List<Task>>();
-    protected List<Item> m_Items = new List<Item>();
+    public List<Item> m_Items = new List<Item>();
     protected bool m_AllConditionsMet;
-    public BaseAi() 
+    protected Vector3 m_homePosition = Vector3.zero;
+    public BaseAi()
     {
         m_AllConditionsMet = false;
         m_availableActions.Add(new Walk());
-        m_availableActions.Add(new Idle());
-        m_availableActions.Add(new Idle1());
+        m_goals.Add(new Idle());
+        m_work = null;
+    }
+
+    protected void FindHome()
+    {
+        HomeScript[] temp = Object.FindObjectsOfType<HomeScript>();
+        for (int i = 0; i<temp.Length; i++)
+        {
+            if (!temp[i].m_assignedAi)
+            {
+                temp[i].m_assignedAi = this;
+                m_homePosition = temp[i].transform.position;
+                i = temp.Length;
+            }
+        }
     }
     // Update is called once per frame
     protected void Update()
@@ -38,11 +55,14 @@ public class BaseAi : MonoBehaviour
         }
         else
         {
-            //m_tasks.Add(new Idle(m_agent, new Vector3(Random.Range(1, 20), 0, Random.Range(1, 20))));
-            //m_tasks[m_tasks.Count - 1].StartExecution();
+            if(m_homePosition != Vector3.zero)
+            {
+                m_tasks.Add(new Idle(m_agent, m_homePosition));
+                m_tasks[0].StartExecution();
+            }
         }
     }
-    protected void SetTaskList()
+    public void SetTaskList()
     {
         float lowestWeight = Mathf.Infinity;
         List<Task> tempTasks = new List<Task>();
@@ -59,6 +79,7 @@ public class BaseAi : MonoBehaviour
                 tempTasks = m_taskListOptions[i];
             }
         }
+        m_tasks.Clear();
         for (int i = 0; i < tempTasks.Count; i++) 
         {
             m_tasks.Add(tempTasks[i]);
@@ -74,5 +95,17 @@ public class BaseAi : MonoBehaviour
             temp.Add(toCopy[i]);
         }
         return temp;
+    }
+    public bool PriorityChecker(Task a)
+    {
+        if(m_tasks.Count == 0)
+        {
+            return true;
+        }
+        if(a.m_priority > m_tasks[0].m_priority)
+        {
+            return true;
+        }
+        return false;
     }
 }

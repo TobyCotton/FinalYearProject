@@ -12,18 +12,12 @@ public class FarmerAi : BaseAi
     {
         m_HasHoe = false;
         m_destination = Vector3.zero;
-        m_availableActions.Add(new HarvestWheat());
+        m_goals.Add(new HarvestWheat());
         m_availableActions.Add(new GetHoe());
     }
     private void Start()
     {
-        AddToTaskList(new HarvestWheat(m_agent),0);
-        SetTaskList();
-        m_tasks[m_tasks.Count - 1].StartExecution();
-    }
-    void Update()
-    {
-        base.Update();
+        FindHome();
     }
     public void AddToTaskList(Task goal,int listIncrement)
     {
@@ -74,14 +68,8 @@ public class FarmerAi : BaseAi
                                 AddToTaskList(new GetHoe(m_agent), found+k);
                             }
                             break;
-                        case "HarvestWheat":
-                            for (int k = 0; k < temp; k++)
-                            {
-                                AddToTaskList(new HarvestWheat(m_agent), found);
-                            }
-                            break;
                         case "Walk":
-                            Vector3 destination = goal.getDestination();
+                            Vector3 destination = goal.getDestination(this);
                             if (destination != Vector3.zero)
                             {
                                 AddToTaskList(new Walk(m_agent, destination), found);
@@ -89,28 +77,6 @@ public class FarmerAi : BaseAi
                             else
                             {
                                 Debug.Log("Walk failed in farmer");
-                            }
-                            break;
-                        case "Idle":
-                            destination = goal.getDestination();
-                            if (destination != Vector3.zero)
-                            {
-                                AddToTaskList(new Idle(m_agent, destination), found);
-                            }
-                            else
-                            {
-                                Debug.Log("Idle failed in farmer");
-                            }
-                            break;
-                        case "Idle1":
-                            destination = goal.getDestination();
-                            if (destination != Vector3.zero)
-                            {
-                                AddToTaskList(new Idle1(m_agent, destination), found);
-                            }
-                            else
-                            {
-                                Debug.Log("Idle1 failed in farmer");
                             }
                             break;
                     }
