@@ -7,18 +7,16 @@ using UnityEngine.AI;
 
 public class BaseAi : MonoBehaviour
 {
-    public List<Task> m_availableActions = new List<Task>();
-    public List<Task> m_goals = new List<Task>();
+    protected List<Task> m_availableActions = new List<Task>();
+    protected List<Task> m_goals = new List<Task>();
     public NavMeshAgent m_agent;
     public Building m_work;
-    public List<Task> m_tasks = new List<Task>();
+    private List<Task> m_tasks = new List<Task>();
     protected List<List<Task>> m_taskListOptions = new List<List<Task>>();
     public List<Item> m_Items = new List<Item>();
-    protected bool m_AllConditionsMet;
     protected Vector3 m_homePosition = Vector3.zero;
     public BaseAi()
     {
-        m_AllConditionsMet = false;
         m_availableActions.Add(new Walk());
         m_goals.Add(new Idle());
         m_work = null;
@@ -38,7 +36,7 @@ public class BaseAi : MonoBehaviour
         }
     }
     // Update is called once per frame
-    protected void Update()
+    protected void UpdateToDo()
     {
         int taskLength = m_tasks.Count;
         if (taskLength != 0)
@@ -107,5 +105,43 @@ public class BaseAi : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    protected bool CheckPrerequisite(Task goal, int listIncrement)
+    {
+        if (goal.m_PreRequisite.Count == 0)
+        {
+            if (m_taskListOptions.Count == 0)
+            {
+                m_taskListOptions.Add(new List<Task>());
+            }
+            m_taskListOptions[listIncrement].Add(goal);
+            return false;
+        }
+        return true;
+    }
+
+    protected bool CheckInventory(Task goal,int prerequisiteNumber)
+    {
+        for (int z = 0; z < m_Items.Count; z++)
+        {
+            if (goal.m_PreRequisite[prerequisiteNumber] == m_Items[z].m_name)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected void AddToList(Task goal, int listIncrement,int prerequisiteNumber)
+    {
+        if (prerequisiteNumber == 0)//There is a prerequisite we have to do so add the goal only do on the first time through
+        {
+            if (m_taskListOptions.Count == listIncrement)
+            {
+                m_taskListOptions.Add(new List<Task>());
+            }
+            m_taskListOptions[listIncrement].Add(goal);
+        }
     }
 }

@@ -8,6 +8,7 @@ public class GetHoe : Task
     private NavMeshAgent m_agent;
     private Vector3 m_destination;
     private BaseAi m_ai;
+    private BlacksmithScript m_blacksmith;
     public GetHoe(NavMeshAgent agent)
     {
         m_Weight = 0;
@@ -41,6 +42,7 @@ public class GetHoe : Task
             {
                 shortestDistance = distance;
                 m_destination = blacksmiths[i].transform.position;
+                m_blacksmith = blacksmiths[i];
             }
         }
         return m_destination;
@@ -50,6 +52,7 @@ public class GetHoe : Task
         if (m_ai)
         {
             m_ai.m_Items.Add(new Item("Hoe"));
+            m_blacksmith.m_Hoes--;
         }
         return true; 
     }

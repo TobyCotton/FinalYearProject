@@ -31,7 +31,7 @@ public class FarmScript : Building
                 m_Timer = m_TimerReset;
                 if (m_farmer.PriorityChecker(new HarvestWheat()))
                 {
-                    m_farmer.AddToTaskList(new HarvestWheat(m_farmer.m_agent), 0);
+                    m_farmer.AddToTaskList(new HarvestWheat(), 0);
                     m_farmer.SetTaskList();
                 }
             }

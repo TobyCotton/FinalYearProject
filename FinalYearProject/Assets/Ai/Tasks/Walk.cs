@@ -8,7 +8,7 @@ public class Walk : Task
     private NavMeshAgent m_agent;
     private Vector3 m_destination;
 
-    public Walk(NavMeshAgent agent, Vector3 destination, int StoppingDistance = 5)
+    public Walk(NavMeshAgent agent, Vector3 destination, int StoppingDistance = 0)
     {
         m_Weight = 1;
         m_Task = "Walk";

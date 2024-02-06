@@ -6,12 +6,8 @@ using UnityEngine.AI;
 
 public class FarmerAi : BaseAi
 {
-    public bool m_HasHoe;
-    private Vector3 m_destination;
     public FarmerAi()
     {
-        m_HasHoe = false;
-        m_destination = Vector3.zero;
         m_goals.Add(new HarvestWheat());
         m_availableActions.Add(new GetHoe());
     }
@@ -19,36 +15,25 @@ public class FarmerAi : BaseAi
     {
         FindHome();
     }
+
+    void Update()
+    {
+        UpdateToDo();
+    }
     public void AddToTaskList(Task goal,int listIncrement)
     {
-        if (goal.m_PreRequisite.Count == 0)
+        if(!CheckPrerequisite(goal,listIncrement))
         {
-            if (m_taskListOptions.Count == 0)
-            {
-                m_taskListOptions.Add(new List<Task>());
-            }
-            m_taskListOptions[listIncrement].Add(goal);
             return;
         }
         for (int i = 0; i < goal.m_PreRequisite.Count; i++)
         {
-            for(int z = 0; z < m_Items.Count;z++)
+            if(CheckInventory(goal,i))
             {
-                if (goal.m_PreRequisite[i] == m_Items[z].m_name)
-                {
-                    return;
-                }
+                return;
             }
-            if (i == 0)//There is a prerequisite we have to do so add the goal only do on the first time through
-            {
-                if (m_taskListOptions.Count == listIncrement)
-                {
-                    m_taskListOptions.Add(new List<Task>());
-                }
-                m_taskListOptions[listIncrement].Add(goal);
-            }
+            AddToList(goal, listIncrement, i);
             int temp = m_taskListOptions.Count;
-            string lastKnown = "None";
             int found = listIncrement;
             Task[] Temptasks = m_taskListOptions[found].ToArray();
             for (int j = 0; j < m_availableActions.Count; j++)
@@ -81,10 +66,8 @@ public class FarmerAi : BaseAi
                             break;
                     }
                     found++;
-                    lastKnown = m_availableActions[j].m_Task;
                 }
             }
         }
     }
-    public bool CheckHoe() { return m_HasHoe; }
 }
