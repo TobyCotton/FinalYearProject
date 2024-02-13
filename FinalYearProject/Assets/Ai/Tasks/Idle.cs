@@ -27,6 +27,7 @@ public class Idle : Task//Currently the same as walk will edit once designated i
     }
     public override void StartExecution()
     {
+        m_executionStarted = true;
         m_agent.SetDestination(m_destination);
     }
     public override bool Executing()

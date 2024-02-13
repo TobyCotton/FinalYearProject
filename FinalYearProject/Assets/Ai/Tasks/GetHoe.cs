@@ -51,9 +51,16 @@ public class GetHoe : Task
     {
         if (m_ai)
         {
-            m_ai.m_Items.Add(new Item("Hoe"));
-            m_blacksmith.m_Hoes--;
+            if (m_blacksmith.m_Hoes > 0)
+            {
+                m_ai.m_Items.Add(new Item("Hoe"));
+                m_blacksmith.m_Hoes--;
+            }
         }
         return true; 
+    }
+    public override void StartExecution()
+    {
+        m_executionStarted = true;
     }
 }

@@ -18,11 +18,15 @@ public class HarvestWheat : Task
     }
     public override Vector3 getDestination(BaseAi ai)
     {
-        if(ai.m_work)
+        if (ai.m_work)
         {
             m_destination = ai.m_work.transform.position;
             return m_destination;
         }
         return Vector3.zero;
+    }
+    public override void StartExecution()
+    {
+        m_executionStarted = true;
     }
 }

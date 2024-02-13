@@ -19,6 +19,16 @@ public class FarmerAi : BaseAi
     void Update()
     {
         UpdateToDo();
+        if (m_tasks.Count == 1)
+        {
+            if (!m_tasks[m_tasks.Count-1].m_executionStarted)
+            {
+                Task tempStore = m_tasks[0];
+                m_tasks.Clear();
+                AddToTaskList(tempStore, 0);
+                SetTaskList();
+            }
+        }
     }
     public void AddToTaskList(Task goal,int listIncrement)
     {

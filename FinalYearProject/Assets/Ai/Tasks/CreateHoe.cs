@@ -28,6 +28,10 @@ public class CreateHoe : Task
         }
         return Vector3.zero;
     }
+    public override void StartExecution()
+    {
+        m_executionStarted = true;
+    }
     public override bool Executing()
     {
         m_BlacksmithScript.m_Hoes++;
