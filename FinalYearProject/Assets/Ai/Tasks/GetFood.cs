@@ -10,7 +10,7 @@ public class GetFood : Task
     private BaseAi m_ai;
     private BakeryScript m_bakery;
 
-    public GetFood(NavMeshAgent agent)
+    public GetFood(NavMeshAgent agent, BaseAi ai)
     {
         m_Weight = 0;
         m_Task = "GetFood";
@@ -19,7 +19,7 @@ public class GetFood : Task
         m_destination = Vector3.zero;
         m_agent = agent;
         m_priority = 5;
-        m_ai = null;
+        m_ai = ai;
     }
     public GetFood() 
     {
@@ -29,6 +29,7 @@ public class GetFood : Task
         m_effect = "Full";
         m_destination = Vector3.zero;
         m_agent = null;
+        m_priority = 5;
         m_ai = null;
     }
 
@@ -55,13 +56,18 @@ public class GetFood : Task
     {
         if (m_ai)
         {
+            //if(!m_bakery)
+            //{
+            //    getDestination(m_ai);
+            //}
             if (m_bakery.m_foodCount > 0)
             {
                 m_ai.m_hunger = 0;
                 m_bakery.m_foodCount--;
+                return true;
             }
         }
-        return true;
+        return false;
     }
     public override void StartExecution()
     {

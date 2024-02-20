@@ -19,6 +19,7 @@ public class BaseAi : MonoBehaviour
     public List<Item> m_Items = new List<Item>();
     protected Vector3 m_homePosition = Vector3.zero;
     public float m_hunger;
+    private bool m_skip = false;
     public BaseAi()
     {
         m_availableActions.Add(new Walk());
@@ -49,13 +50,13 @@ public class BaseAi : MonoBehaviour
         {
             if (m_tasks.Count != 0)
             {
-                if (Types.Equals(m_tasks[0], new GetFood())) { }
+                if (m_tasks[0] is GetFood) { }
                 else
                 {
                     bool isIn = false;
                     for (int i = 0; i < m_toDoGoals.Count; i++)
                     {
-                        if (Types.Equals(m_tasks[0], new GetFood()))
+                        if (m_toDoGoals[i] is GetFood)
                         {
                             isIn = true;
                         }
@@ -64,18 +65,20 @@ public class BaseAi : MonoBehaviour
                     {
                         if (PriorityChecker(new GetFood()))
                         {
-                            m_tasks.Add(new GetFood(m_agent));
+                            m_tasks.Add(new GetFood(m_agent,this));
+                            m_skip = true;
                         }
                         else
                         {
-                            m_toDoGoals.Add(new GetFood(m_agent));
+                            m_toDoGoals.Add(new GetFood(m_agent,this));
                         }
                     }
                 }
             }
             else
             {
-                m_tasks.Add(new GetFood(m_agent));
+                m_tasks.Add(new GetFood(m_agent, this));
+                m_skip = true;
             }
         }
         int taskLength = m_tasks.Count;
@@ -103,8 +106,9 @@ public class BaseAi : MonoBehaviour
             {
                 m_toDoGoals.Remove(stored);
                 m_tasks.Add(stored);
+                m_skip = true;
             }
-            if (m_tasks[taskLength - 1].Executing())//Execute task
+            if (!m_skip && m_tasks[taskLength - 1].Executing())//Execute task
             {//if Finished
                 m_tasks.RemoveAt(taskLength - 1);
                 taskLength = m_tasks.Count;
@@ -113,6 +117,7 @@ public class BaseAi : MonoBehaviour
                     m_tasks[taskLength - 1].StartExecution();
                 }
             }
+            m_skip = false;
         }
         else
         {
@@ -184,8 +189,12 @@ public class BaseAi : MonoBehaviour
         }
         if(a.m_priority > m_tasks[0].m_priority)
         {
-            m_tasks[0].m_executionStarted = false;
-            m_toDoGoals.Add(m_tasks[0]);
+            if (m_tasks[0] is Idle) { }
+            else
+            {
+                m_tasks[0].m_executionStarted = false;
+                m_toDoGoals.Add(m_tasks[0]);
+            }
             m_tasks.Clear();
             return true;
         }

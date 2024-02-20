@@ -9,7 +9,7 @@ public class BakeryScript : Building
     private BakerAI m_Baker;
     public BakeryScript()
     {
-        m_foodCount = 3;
+        m_foodCount = 6;
         m_IdealFoodCount = 5;
     }
 
