@@ -8,7 +8,7 @@ public class Walk : Task
     private NavMeshAgent m_agent;
     private Vector3 m_destination;
 
-    public Walk(NavMeshAgent agent, Vector3 destination, int StoppingDistance = 0)
+    public Walk(NavMeshAgent agent, Vector3 destination, int StoppingDistance = 5)
     {
         m_Weight = 1;
         m_Task = "Walk";
@@ -28,6 +28,7 @@ public class Walk : Task
     }
     public override void StartExecution()
     {
+        m_executionStarted = true;
         m_agent.SetDestination(m_destination);
     }
     public override bool Executing()

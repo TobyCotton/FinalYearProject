@@ -15,12 +15,14 @@ public class Task
     public int m_Weight;
     public string m_effect;
     public float m_priority = -1.0f;
+    public bool m_executionStarted;
 
     public Task()
     {
         m_PreRequisite = new List<string>();
+        m_executionStarted = false;
     }
-    public virtual void StartExecution() { }
+    public virtual void StartExecution() { m_executionStarted = true; }
     public virtual bool Executing() { return true; }
     public virtual Vector3 getDestination(BaseAi ai) { return Vector3.zero; }
 }
