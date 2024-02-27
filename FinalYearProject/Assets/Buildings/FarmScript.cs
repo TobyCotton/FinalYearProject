@@ -19,18 +19,19 @@ public class FarmScript : Building
     void Update()
     {
         m_Timer -= Time.deltaTime;
-        if (m_Timer <= 0)
+        if (m_Timer <= 0 || !m_Harvested)
         {
+            m_Harvested = false;
             if(!m_farmer)
             {
                 FindFarmer();
             }
             if (m_farmer)
             {
-                m_Harvested = false;
                 m_Timer = m_TimerReset;
                 if (m_farmer.PriorityChecker(new HarvestWheat()))
                 {
+                    m_Harvested = true;
                     m_farmer.AddToTaskList(new HarvestWheat(), 0);
                     m_farmer.SetTaskList();
                 }
