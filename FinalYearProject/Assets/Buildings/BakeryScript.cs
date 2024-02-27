@@ -23,7 +23,11 @@ public class BakeryScript : Building
         {
             if(m_foodCount < m_IdealFoodCount)
             {
-                //Add in create food task here
+                if (m_Baker.PriorityChecker(new CreateFood()))
+                {
+                    m_Baker.AddToTaskList(new CreateFood(), 0);
+                    m_Baker.SetTaskList();
+                }
             }
         }
     }

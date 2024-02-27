@@ -53,7 +53,7 @@ public class GetHoe : Task
         {
             if (m_blacksmith.m_Hoes > 0)
             {
-                m_ai.m_Items.Add(new Item("Hoe"));
+                m_ai.m_Items.Add(new Item("Hoe",2));
                 m_blacksmith.m_Hoes--;
             }
         }

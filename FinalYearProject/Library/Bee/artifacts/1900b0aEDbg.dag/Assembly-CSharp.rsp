@@ -362,6 +362,7 @@
 "Assets/Ai/Item.cs"
 "Assets/Ai/SmithyAI.cs"
 "Assets/Ai/Tasks/CreateChisel.cs"
+"Assets/Ai/Tasks/CreateFood.cs"
 "Assets/Ai/Tasks/CreateHoe.cs"
 "Assets/Ai/Tasks/CreateHorseshoe.cs"
 "Assets/Ai/Tasks/GetFood.cs"

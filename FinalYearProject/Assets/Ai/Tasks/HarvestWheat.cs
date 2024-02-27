@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class HarvestWheat : Task
 {
     private Vector3 m_destination;
+    BaseAi m_baseAi;
     public HarvestWheat()
     {
         m_Weight = 1;
@@ -18,9 +19,10 @@ public class HarvestWheat : Task
     }
     public override Vector3 getDestination(BaseAi ai)
     {
-        if (ai.m_work)
+        m_baseAi = ai;
+        if (m_baseAi.m_work)
         {
-            m_destination = ai.m_work.transform.position;
+            m_destination = m_baseAi.m_work.transform.position;
             return m_destination;
         }
         return Vector3.zero;
@@ -28,5 +30,19 @@ public class HarvestWheat : Task
     public override void StartExecution()
     {
         m_executionStarted = true;
+    }
+    public override bool Executing()
+    {
+        for(int i = 0; i < m_baseAi.m_Items.Count; i++)
+        {
+            if (m_baseAi.m_Items[i].m_name == "Hoe")
+            {
+                if(!m_baseAi.m_Items[i].ReduceDurability())
+                {
+                    m_baseAi.m_Items.Remove(m_baseAi.m_Items[i]);
+                }
+            }
+        }
+        return true;
     }
 }

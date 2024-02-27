@@ -139,6 +139,7 @@ public class BaseAi : MonoBehaviour
                     }
                 }
                 m_tasks.Add(stored);
+                m_toDoGoals.Remove(stored);
             }
             else if(m_homePosition != Vector3.zero)//go home if no tasks to complete
             {
