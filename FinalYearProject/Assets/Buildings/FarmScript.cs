@@ -11,11 +11,14 @@ public class FarmScript : Building
 
     public FarmScript(int timer)
     {
-        m_Timer = timer;
-        m_Harvested = true;
         m_TimerReset = timer;
     }
     // Update is called once per frame
+    private void Start()
+    {
+        m_Timer = m_TimerReset;
+        m_Harvested = true;
+    }
     void Update()
     {
         m_Timer -= Time.deltaTime;
@@ -32,7 +35,7 @@ public class FarmScript : Building
                 if (m_farmer.PriorityChecker(new HarvestWheat()))
                 {
                     m_Harvested = true;
-                    m_farmer.AddToTaskList(new HarvestWheat(), 0);
+                    m_farmer.AddToTaskList(new HarvestWheat(m_farmer), 0);
                     m_farmer.SetTaskList();
                 }
             }

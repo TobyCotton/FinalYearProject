@@ -7,10 +7,14 @@ public class BakeryScript : Building
     public int m_foodCount;
     private int m_IdealFoodCount;
     private BakerAI m_Baker;
+    public bool m_requested = false;
     public BakeryScript()
     {
-        m_foodCount = 6;
-        m_IdealFoodCount = 5;
+        m_IdealFoodCount = 6;
+    }
+    private void Start()
+    {
+        m_foodCount = m_IdealFoodCount;
     }
 
     void Update()
@@ -21,11 +25,11 @@ public class BakeryScript : Building
         }
         if(m_Baker)
         {
-            if(m_foodCount < m_IdealFoodCount)
+            if(m_foodCount < m_IdealFoodCount)//need a checker to see if the task is in a list or not
             {
                 if (m_Baker.PriorityChecker(new CreateFood()))
                 {
-                    m_Baker.AddToTaskList(new CreateFood(), 0);
+                    m_Baker.AddToTaskList(new CreateFood(m_Baker), 0);
                     m_Baker.SetTaskList();
                 }
             }

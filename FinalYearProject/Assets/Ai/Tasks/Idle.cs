@@ -7,7 +7,7 @@ public class Idle : Task//Currently the same as walk will edit once designated i
 {
     private NavMeshAgent m_agent;
     private Vector3 m_destination;
-    public Idle(NavMeshAgent agent, Vector3 destination)
+    public Idle(NavMeshAgent agent, Vector3 destination, BaseAi ai, int StoppingDistance = 6)
     {
         m_Weight = 2;
         m_Task = "Idle";
@@ -15,6 +15,9 @@ public class Idle : Task//Currently the same as walk will edit once designated i
         m_agent = agent;
         m_effect = "InRange";
         m_priority = 0;
+        m_agent.stoppingDistance = StoppingDistance;
+        m_time = 0;
+        m_baseAi = ai;
     }
     public Idle()
     {
@@ -28,6 +31,10 @@ public class Idle : Task//Currently the same as walk will edit once designated i
     public override void StartExecution()
     {
         m_executionStarted = true;
+        if (!m_baseAi.m_visible && !m_baseAi.m_multipleIdle)
+        {
+            m_baseAi.ToggleMesh();
+        }
         m_agent.SetDestination(m_destination);
     }
     public override bool Executing()

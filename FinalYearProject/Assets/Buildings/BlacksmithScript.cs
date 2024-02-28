@@ -29,7 +29,7 @@ public class BlacksmithScript : Building
             {
                 if (m_Smithy.PriorityChecker(new CreateHoe()))
                 {
-                    m_Smithy.AddToTaskList(new CreateHoe(), 0);
+                    m_Smithy.AddToTaskList(new CreateHoe(m_Smithy), 0);
                     m_Smithy.SetTaskList();
                 }
             }
@@ -37,7 +37,7 @@ public class BlacksmithScript : Building
             {
                 if (m_Smithy.PriorityChecker(new CreateHorseshoe()))
                 {
-                    m_Smithy.AddToTaskList(new CreateHorseshoe(), 0);
+                    m_Smithy.AddToTaskList(new CreateHorseshoe(m_Smithy), 0);
                     m_Smithy.SetTaskList();
                 }
             }
@@ -45,7 +45,7 @@ public class BlacksmithScript : Building
             {
                 if (m_Smithy.PriorityChecker(new CreateChisel()))
                 {
-                    m_Smithy.AddToTaskList(new CreateChisel(), 0);
+                    m_Smithy.AddToTaskList(new CreateChisel(m_Smithy), 0);
                     m_Smithy.SetTaskList();
                 }
             }

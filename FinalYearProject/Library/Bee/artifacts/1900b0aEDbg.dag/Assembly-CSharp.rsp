@@ -369,6 +369,7 @@
 "Assets/Ai/Tasks/GetHoe.cs"
 "Assets/Ai/Tasks/HarvestWheat.cs"
 "Assets/Ai/Tasks/Idle.cs"
+"Assets/Ai/Tasks/StoreItem.cs"
 "Assets/Ai/Tasks/Task.cs"
 "Assets/Ai/Tasks/Walk.cs"
 "Assets/Buildings/BakeryScript.cs"
@@ -376,6 +377,7 @@
 "Assets/Buildings/Building.cs"
 "Assets/Buildings/FarmScript.cs"
 "Assets/Buildings/HomeScript.cs"
+"Assets/Buildings/StoreRoomScript.cs"
 "Assets/FreeFlyCamera/Demo/Scripts/ToggleGameObjectEnable.cs"
 "Assets/FreeFlyCamera/Scripts/FreeFlyCamera.cs"
 -langversion:9.0

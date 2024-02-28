@@ -51,10 +51,10 @@ public class BakerAI : BaseAi
                     switch (m_availableActions[j].m_Task)
                     {
                         case "Walk":
-                            Vector3 destination = goal.getDestination(this);
+                            Vector3 destination = goal.getDestination();
                             if (destination != Vector3.zero)
                             {
-                                AddToTaskList(new Walk(m_agent, destination), found);
+                                AddToTaskList(new Walk(m_agent, destination,this), found);
                             }
                             else
                             {

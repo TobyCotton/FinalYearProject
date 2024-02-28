@@ -7,7 +7,6 @@ public class GetFood : Task
 {
     private NavMeshAgent m_agent;
     private Vector3 m_destination;
-    private BaseAi m_ai;
     private BakeryScript m_bakery;
 
     public GetFood(NavMeshAgent agent, BaseAi ai)
@@ -19,7 +18,7 @@ public class GetFood : Task
         m_destination = Vector3.zero;
         m_agent = agent;
         m_priority = 5;
-        m_ai = ai;
+        m_baseAi = ai;
     }
     public GetFood() 
     {
@@ -30,12 +29,10 @@ public class GetFood : Task
         m_destination = Vector3.zero;
         m_agent = null;
         m_priority = 5;
-        m_ai = null;
     }
 
-    public override Vector3 getDestination(BaseAi ai)
+    public override Vector3 getDestination()
     {
-        m_ai = ai;
         BakeryScript[] bakerys = Object.FindObjectsOfType<BakeryScript>();
         float shortestDistance = Mathf.Infinity;
         Vector3 currentPosition = m_agent.transform.position;
@@ -54,23 +51,15 @@ public class GetFood : Task
 
     public override bool Executing()
     {
-        if (m_ai)
+        if (m_baseAi)
         {
-            //if(!m_bakery)
-            //{
-            //    getDestination(m_ai);
-            //}
             if (m_bakery.m_foodCount > 0)
             {
-                m_ai.m_hunger = 0;
+                m_baseAi.m_hunger = 0;
                 m_bakery.m_foodCount--;
                 return true;
             }
         }
         return false;
-    }
-    public override void StartExecution()
-    {
-        m_executionStarted = true;
     }
 }

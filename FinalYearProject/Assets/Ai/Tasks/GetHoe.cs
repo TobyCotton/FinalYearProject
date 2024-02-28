@@ -7,9 +7,8 @@ public class GetHoe : Task
 {
     private NavMeshAgent m_agent;
     private Vector3 m_destination;
-    private BaseAi m_ai;
     private BlacksmithScript m_blacksmith;
-    public GetHoe(NavMeshAgent agent)
+    public GetHoe(NavMeshAgent agent, BaseAi ai)
     {
         m_Weight = 0;
         m_Task = "GetHoe";
@@ -17,7 +16,7 @@ public class GetHoe : Task
         m_effect = "Hoe";
         m_destination = Vector3.zero;
         m_agent = agent;
-        m_ai = null;
+        m_baseAi = ai;
     }
     public GetHoe()
     {
@@ -27,11 +26,9 @@ public class GetHoe : Task
         m_effect = "Hoe";
         m_destination = Vector3.zero;
         m_agent = null;
-        m_ai = null;
     }
-    public override Vector3 getDestination(BaseAi ai)
+    public override Vector3 getDestination()
     {
-        m_ai = ai;
         BlacksmithScript[] blacksmiths = Object.FindObjectsOfType<BlacksmithScript>();
         float shortestDistance = Mathf.Infinity;
         Vector3 currentPosition = m_agent.transform.position;
@@ -49,18 +46,14 @@ public class GetHoe : Task
     }
     public override bool Executing()
     {
-        if (m_ai)
+        if (m_baseAi)
         {
             if (m_blacksmith.m_Hoes > 0)
             {
-                m_ai.m_Items.Add(new Item("Hoe",2));
+                m_baseAi.m_Items.Add(new Item("Hoe",2));
                 m_blacksmith.m_Hoes--;
             }
         }
         return true; 
-    }
-    public override void StartExecution()
-    {
-        m_executionStarted = true;
     }
 }
