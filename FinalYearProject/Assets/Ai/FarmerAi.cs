@@ -71,6 +71,7 @@ public class FarmerAi : BaseAi
                             }
                             else
                             {
+                                AddToTaskList(new Walk(m_agent, destination, this), found);
                                 Debug.Log("Walk failed in farmer");
                             }
                             break;

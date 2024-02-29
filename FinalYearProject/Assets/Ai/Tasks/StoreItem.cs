@@ -5,6 +5,7 @@ using UnityEngine;
 public class StoreItem : Task
 {
     private Vector3 m_destination;
+    StoreRoomScript m_storeRoom;
     Item m_itemToStore;
 
     public StoreItem(Item item, BaseAi ai)
@@ -36,10 +37,26 @@ public class StoreItem : Task
             float distance = Vector3.Distance(currentPosition, storeRooms[i].transform.position);
             if (distance < shortestDistance)
             {
+                m_storeRoom = storeRooms[i];
                 shortestDistance = distance;
                 m_destination = storeRooms[i].transform.position;
             }
         }
         return m_destination;
+    }
+
+    public override bool Executing()
+    {
+        if(m_storeRoom)
+        {
+            m_storeRoom.m_Stored.Add(m_itemToStore);
+            m_baseAi.m_Items.Remove(m_itemToStore);
+        }
+        else
+        {
+            TaskFailed();
+            return false;
+        }
+        return true;
     }
 }

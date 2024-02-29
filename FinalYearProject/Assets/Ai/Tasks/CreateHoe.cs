@@ -41,6 +41,7 @@ public class CreateHoe : Task
     public override bool Executing()
     {
         m_BlacksmithScript.m_Hoes++;
+        m_BlacksmithScript.m_hoeRequested = false;
         return true;
     }
 }

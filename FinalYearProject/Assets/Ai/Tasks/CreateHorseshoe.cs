@@ -41,6 +41,7 @@ public class CreateHorseshoe : Task
     public override bool Executing()
     {
         m_BlacksmithScript.m_Horshoes++;
+        m_BlacksmithScript.m_horseshoeRequested = false;
         return true;
     }
 }

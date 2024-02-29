@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Search;
 using UnityEngine;
 
 public class CreateFood : Task
@@ -12,6 +13,7 @@ public class CreateFood : Task
         m_Weight = 1;
         m_Task = "CreateFood";
         m_PreRequisite.Add("InRange");
+        m_PreRequisite.Add("Wheat");
         m_effect = "Food";
         m_priority = 2.0f;
         m_destination = Vector3.zero;
@@ -22,6 +24,7 @@ public class CreateFood : Task
         m_Weight = 1;
         m_Task = "CreateFood";
         m_PreRequisite.Add("InRange");
+        m_PreRequisite.Add("Wheat");
         m_effect = "Food";
         m_priority = 2.0f;
         m_destination = Vector3.zero;
@@ -41,7 +44,20 @@ public class CreateFood : Task
     }
     public override bool Executing()
     {
+        m_BakeryScript.m_requested = false;
         m_BakeryScript.m_foodCount++;
+        Item toRemove = null;
+        foreach(Item item in m_baseAi.m_Items)
+        {
+            if(item.m_name == "Wheat")
+            {
+                toRemove = item;
+            }
+        }
+        if(toRemove != null)
+        {
+            m_baseAi.m_Items.Remove(toRemove);
+        }
         return true;
     }
 }

@@ -367,6 +367,7 @@
 "Assets/Ai/Tasks/CreateHorseshoe.cs"
 "Assets/Ai/Tasks/GetFood.cs"
 "Assets/Ai/Tasks/GetHoe.cs"
+"Assets/Ai/Tasks/GetWheat.cs"
 "Assets/Ai/Tasks/HarvestWheat.cs"
 "Assets/Ai/Tasks/Idle.cs"
 "Assets/Ai/Tasks/StoreItem.cs"

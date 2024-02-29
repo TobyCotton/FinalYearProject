@@ -25,13 +25,18 @@ public class BakeryScript : Building
         }
         if(m_Baker)
         {
-            if(m_foodCount < m_IdealFoodCount)//need a checker to see if the task is in a list or not
+            if(m_foodCount < m_IdealFoodCount && !m_requested)
             {
                 if (m_Baker.PriorityChecker(new CreateFood()))
                 {
                     m_Baker.AddToTaskList(new CreateFood(m_Baker), 0);
                     m_Baker.SetTaskList();
                 }
+                else
+                {
+                    m_Baker.m_toDoGoals.Add(new CreateFood(m_Baker));
+                }
+                m_requested = true;
             }
         }
     }

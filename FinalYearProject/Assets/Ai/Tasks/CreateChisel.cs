@@ -41,6 +41,7 @@ public class CreateChisel : Task
     public override bool Executing()
     {
         m_BlacksmithScript.m_Chisels++;
+        m_BlacksmithScript.m_chiselRequested = false;
         return true;
     }
 }

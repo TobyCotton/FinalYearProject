@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class BakerAI : BaseAi
 {
+    public BakerAI()
+    {
+        m_goals.Add(new CreateFood());
+        m_availableActions.Add(new GetWheat());
+    }
     void Start()
     {
         FindHome();
@@ -58,7 +63,14 @@ public class BakerAI : BaseAi
                             }
                             else
                             {
-                                Debug.Log("Walk failed in farmer");
+                                AddToTaskList(new Walk(m_agent, destination, this), found);
+                                Debug.Log("Walk failed in baker");
+                            }
+                            break;
+                        case "GetWheat":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new GetWheat(m_agent, this), found + k);
                             }
                             break;
                     }

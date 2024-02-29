@@ -9,6 +9,9 @@ public class BlacksmithScript : Building
     public int m_Horshoes;
     public int m_Chisels;
     SmithyAI m_Smithy = null;
+    public bool m_hoeRequested = false;
+    public bool m_horseshoeRequested = false;
+    public bool m_chiselRequested = false;
 
     public BlacksmithScript()
     {
@@ -25,29 +28,44 @@ public class BlacksmithScript : Building
         }
         if (m_Smithy)
         {
-            if (m_Hoes < 3)
+            if (m_Hoes < 3 && !m_hoeRequested)
             {
                 if (m_Smithy.PriorityChecker(new CreateHoe()))
                 {
                     m_Smithy.AddToTaskList(new CreateHoe(m_Smithy), 0);
                     m_Smithy.SetTaskList();
                 }
+                else
+                {
+                    m_Smithy.m_toDoGoals.Add(new CreateHoe(m_Smithy));
+                }
+                m_hoeRequested= true;
             }
-            if (m_Horshoes < 4)
+            if (m_Horshoes < 4 && !m_horseshoeRequested)
             {
                 if (m_Smithy.PriorityChecker(new CreateHorseshoe()))
                 {
                     m_Smithy.AddToTaskList(new CreateHorseshoe(m_Smithy), 0);
                     m_Smithy.SetTaskList();
                 }
+                else
+                {
+                    m_Smithy.m_toDoGoals.Add(new CreateHorseshoe(m_Smithy));
+                }
+                m_horseshoeRequested= true;
             }
-            if (m_Chisels < 3)
+            if (m_Chisels < 3 && !m_chiselRequested)
             {
                 if (m_Smithy.PriorityChecker(new CreateChisel()))
                 {
                     m_Smithy.AddToTaskList(new CreateChisel(m_Smithy), 0);
                     m_Smithy.SetTaskList();
                 }
+                else
+                {
+                    m_Smithy.m_toDoGoals.Add(new CreateChisel(m_Smithy));
+                }
+                m_chiselRequested= true;
             }
         }
     }

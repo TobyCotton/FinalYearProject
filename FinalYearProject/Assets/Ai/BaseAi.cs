@@ -11,7 +11,7 @@ public class BaseAi : MonoBehaviour
 {
     protected List<Task> m_availableActions = new List<Task>();
     protected List<Task> m_goals = new List<Task>();
-    private List<Task> m_toDoGoals = new List<Task>();
+    public List<Task> m_toDoGoals = new List<Task>();
     public NavMeshAgent m_agent;
     public Building m_work;
     protected List<Task> m_tasks = new List<Task>();
@@ -48,6 +48,10 @@ public class BaseAi : MonoBehaviour
     // Update is called once per frame
     protected void UpdateToDo()
     {
+        foreach(Task task in m_toDoGoals)
+        {
+            task.UpdatecoolDownPeriod();
+        }
         m_hunger += Time.deltaTime/2;
         if(m_hunger > 60.0f)//if hungry go eat
         {
@@ -131,6 +135,16 @@ public class BaseAi : MonoBehaviour
                         m_tasks[taskLength - 1].StartExecution();
                     }
                 }
+                else
+                {
+                    if(m_tasks[taskLength - 1].m_failed)
+                    {
+                        m_tasks[0].TaskFailed();
+                        m_tasks[0].m_executionStarted = false;
+                        m_toDoGoals.Add(m_tasks[0]);
+                        m_tasks.Clear();
+                    }
+                }
             }
             m_skip = false;
         }
@@ -150,13 +164,20 @@ public class BaseAi : MonoBehaviour
                     }
                     else
                     {
-                        stored = m_toDoGoals[i];
+                        if (m_toDoGoals[i].m_cooldownPeriod <= 0)
+                        {
+                            stored = m_toDoGoals[i];
+                        }
                     }
                 }
-                m_tasks.Add(stored);
-                m_toDoGoals.Remove(stored);
+                if (stored != null)
+                {
+                    m_tasks.Add(stored);
+                    m_toDoGoals.Remove(stored);
+                    return;
+                }
             }
-            else if(m_homePosition != Vector3.zero)//go home if no tasks to complete
+            if(m_homePosition != Vector3.zero)//go home if no tasks to complete
             {
                 m_tasks.Add(new Idle(m_agent, m_homePosition, this));
                 m_tasks[0].StartExecution();
@@ -167,18 +188,31 @@ public class BaseAi : MonoBehaviour
     {
         float lowestWeight = Mathf.Infinity;
         List<Task> tempTasks = new List<Task>();
+        bool failedTask = false;
         for (int i = 0;i < m_taskListOptions.Count; i++)
         {
+            failedTask = false;
             float currentWeight = 0;
             for(int j = 0;j < m_taskListOptions[i].Count;j++)
             {
+                if (m_taskListOptions[i][j].m_failed)
+                {
+                    failedTask = true;
+                }
                 currentWeight += m_taskListOptions[i][j].m_Weight;
             }
-            if (currentWeight < lowestWeight) 
+            if (currentWeight < lowestWeight && !failedTask) 
             {
                 lowestWeight = currentWeight;
                 tempTasks = m_taskListOptions[i];
             }
+        }
+        if(tempTasks.Count == 0)
+        {
+            m_taskListOptions[0][0].TaskFailed();
+            m_toDoGoals.Add(m_taskListOptions[0][0]);
+            m_taskListOptions.Clear();
+            return;
         }
         m_tasks.Clear();
         for (int i = 0; i < tempTasks.Count; i++) 
@@ -200,6 +234,10 @@ public class BaseAi : MonoBehaviour
     }
     public bool PriorityChecker(Task a)//check if priority is greater than current task
     {
+        if(a.m_cooldownPeriod > 0)
+        {
+            return false;
+        }
         if(m_tasks.Count == 0)
         {
             return true;

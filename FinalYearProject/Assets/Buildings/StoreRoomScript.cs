@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class StoreRoomScript : Building
 {
-    List<Item> m_Stored;
+    public List<Item> m_Stored;
     
     public StoreRoomScript()
     {

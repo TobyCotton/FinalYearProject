@@ -38,17 +38,30 @@ public class HarvestWheat : Task
     }
     public override bool Executing()
     {
+        Item toRemove = null;
         for(int i = 0; i < m_baseAi.m_Items.Count; i++)
         {
             if (m_baseAi.m_Items[i].m_name == "Hoe")
             {
                 if(!m_baseAi.m_Items[i].ReduceDurability())
                 {
-                    m_baseAi.m_Items.Remove(m_baseAi.m_Items[i]);
+                    toRemove = m_baseAi.m_Items[i];
                 }
             }
         }
+        if (toRemove != null) 
+        {
+            m_baseAi.m_Items.Remove(toRemove);
+        }
         m_baseAi.m_Items.Add(new Item("Wheat", 1));
+        m_baseAi.m_Items.Add(new Item("Wheat", 1));
+        FarmScript farm = m_baseAi.m_work.GetComponent<FarmScript>();
+        if (farm)
+        {
+            farm.m_requested = false;
+        }
+        m_baseAi.m_toDoGoals.Add(new StoreItem(m_baseAi.m_Items[m_baseAi.m_Items.Count - 1], m_baseAi));
+        m_baseAi.m_toDoGoals.Add(new StoreItem(m_baseAi.m_Items[m_baseAi.m_Items.Count - 2], m_baseAi));
         return true;
     }
 }

@@ -67,7 +67,8 @@ public class SmithyAI : BaseAi
                             }
                             else
                             {
-                                Debug.Log("Walk failed in farmer");
+                                AddToTaskList(new Walk(m_agent, destination, this), found);
+                                Debug.Log("Walk failed in blacksmith");
                             }
                             break;
                     }
