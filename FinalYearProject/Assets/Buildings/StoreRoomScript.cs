@@ -10,4 +10,12 @@ public class StoreRoomScript : Building
     {
         m_Stored = new List<Item>();
     }
+
+    void Update()
+    {
+        foreach (Item item in m_Stored)
+        {
+            Debug.Log(item.m_name);
+        }
+    }
 }

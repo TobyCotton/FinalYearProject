@@ -11,6 +11,7 @@ public class CreateHorseshoe : Task
         m_Weight = 1;
         m_Task = "CreateHorseshoe";
         m_PreRequisite.Add("InRange");
+        m_PreRequisite.Add("Ore");
         m_effect = "Horseshoe";
         m_priority = 2.0f;
         m_destination = Vector3.zero;
@@ -21,6 +22,7 @@ public class CreateHorseshoe : Task
         m_Weight = 1;
         m_Task = "CreateHorseshoe";
         m_PreRequisite.Add("InRange");
+        m_PreRequisite.Add("Ore");
         m_effect = "Horseshoe";
         m_priority = 2.0f;
         m_destination = Vector3.zero;

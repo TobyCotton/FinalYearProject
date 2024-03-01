@@ -9,6 +9,7 @@ public class SmithyAI : BaseAi
         m_goals.Add(new CreateHoe());
         m_goals.Add(new CreateHorseshoe());
         m_goals.Add(new CreateChisel());
+        m_availableActions.Add(new GetOre());
     }
     // Start is called before the first frame update
     void Start()
@@ -69,6 +70,12 @@ public class SmithyAI : BaseAi
                             {
                                 AddToTaskList(new Walk(m_agent, destination, this), found);
                                 Debug.Log("Walk failed in blacksmith");
+                            }
+                            break;
+                        case "GetOre":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new GetOre(m_agent, this), found + k);
                             }
                             break;
                     }
