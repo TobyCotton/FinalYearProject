@@ -14,7 +14,7 @@ public class StoreItem : Task
         m_baseAi = ai;
         m_PreRequisite.Add("InRange");
         m_effect = "ItemStored";
-        m_priority = 2.0f;
+        m_priority = 3.0f;
         m_Weight = 1;
         m_Task = "StoreItem";
     }

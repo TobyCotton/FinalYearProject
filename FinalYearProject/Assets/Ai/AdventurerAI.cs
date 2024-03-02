@@ -7,6 +7,8 @@ public class AdventurerAI : BaseAi
     public AdventurerAI()
     {
         m_goals.Add(new HarvestOre());
+        m_goals.Add(new HarvestWood());
+        m_availableActions.Add(new GetAxe());
         m_availableActions.Add(new GetPickaxe());
     }
     private void Start()
@@ -60,6 +62,12 @@ public class AdventurerAI : BaseAi
                             for (int k = 0; k < temp; k++)
                             {
                                 AddToTaskList(new GetPickaxe(m_agent, this), found + k);
+                            }
+                            break;
+                        case "GetAxe":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new GetAxe(m_agent, this), found + k);
                             }
                             break;
                         case "Walk":

@@ -53,6 +53,11 @@ public class GetHoe : Task
                 m_baseAi.m_Items.Add(new Item("Hoe",2));
                 m_blacksmith.m_Hoes--;
             }
+            else
+            {
+                TaskFailed();
+                return false;
+            }
         }
         return true; 
     }

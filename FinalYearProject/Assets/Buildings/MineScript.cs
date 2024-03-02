@@ -48,7 +48,7 @@ public class MineScript : Building
 
         for (int i = 0; i < adventurers.Length; i++)
         {
-            if (!adventurers[i].m_work)
+            if (adventurers[i].m_work == null)
             {
                 adventurers[i].m_work = this;
                 m_adventurer = adventurers[i];

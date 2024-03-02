@@ -50,10 +50,15 @@ public class GetPickaxe : Task
     {
         if (m_baseAi)
         {
-            if (m_blacksmith.m_Hoes > 0)
+            if (m_blacksmith.m_Pickaxes > 0)
             {
-                m_baseAi.m_Items.Add(new Item("Pickaxe", 2));
+                m_baseAi.m_Items.Add(new Item("Pickaxe", 3));
                 m_blacksmith.m_Pickaxes--;
+            }
+            else
+            {
+                TaskFailed();
+                return false;
             }
         }
         return true;

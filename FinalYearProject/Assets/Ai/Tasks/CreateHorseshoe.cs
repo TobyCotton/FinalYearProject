@@ -44,6 +44,15 @@ public class CreateHorseshoe : Task
     {
         m_BlacksmithScript.m_Horshoes++;
         m_BlacksmithScript.m_horseshoeRequested = false;
+        Item toRemove = null;
+        foreach (Item item in m_baseAi.m_Items)
+        {
+            if (toRemove == null && item.m_name == "Ore")
+            {
+                toRemove = item;
+            }
+        }
+        m_baseAi.m_Items.Remove(toRemove);
         return true;
     }
 }

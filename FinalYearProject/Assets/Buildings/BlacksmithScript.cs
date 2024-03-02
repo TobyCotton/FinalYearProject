@@ -9,11 +9,13 @@ public class BlacksmithScript : Building
     public int m_Horshoes;
     public int m_Chisels;
     public int m_Pickaxes;
+    public int m_Axes;
     SmithyAI m_Smithy = null;
     public bool m_pickaxeRequested = false;
     public bool m_hoeRequested = false;
     public bool m_horseshoeRequested = false;
     public bool m_chiselRequested = false;
+    public bool m_axesRequested = false;
 
     public BlacksmithScript()
     {
@@ -21,6 +23,7 @@ public class BlacksmithScript : Building
         m_Hoes = 3;
         m_Horshoes = 4;
         m_Chisels = 3;
+        m_Axes = 3;
     }
     // Update is called once per frame
     void Update()
@@ -82,6 +85,19 @@ public class BlacksmithScript : Building
                     m_Smithy.m_toDoGoals.Add(new CreatePickaxe(m_Smithy));
                 }
                 m_pickaxeRequested = true;
+            }
+            if (m_Axes < 3 && !m_axesRequested)
+            {
+                if (m_Smithy.PriorityChecker(new CreateAxe()))
+                {
+                    m_Smithy.AddToTaskList(new CreateAxe(m_Smithy), 0);
+                    m_Smithy.SetTaskList();
+                }
+                else
+                {
+                    m_Smithy.m_toDoGoals.Add(new CreateAxe(m_Smithy));
+                }
+                m_axesRequested = true;
             }
         }
     }
