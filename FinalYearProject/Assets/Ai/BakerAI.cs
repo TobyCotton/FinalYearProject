@@ -8,6 +8,7 @@ public class BakerAI : BaseAi
     {
         m_goals.Add(new CreateFood());
         m_availableActions.Add(new GetWheat());
+        m_availableActions.Add(new BuyWheat());
     }
     void Start()
     {
@@ -71,6 +72,12 @@ public class BakerAI : BaseAi
                             for (int k = 0; k < temp; k++)
                             {
                                 AddToTaskList(new GetWheat(m_agent, this), found + k);
+                            }
+                            break;
+                        case "BuyWheat":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new BuyWheat(m_agent, this), found + k);
                             }
                             break;
                     }

@@ -11,6 +11,8 @@ public class SmithyAI : BaseAi
         m_goals.Add(new CreateChisel());
         m_availableActions.Add(new GetOre());
         m_availableActions.Add(new GetWood());
+        m_availableActions.Add(new BuyOre());
+        m_availableActions.Add(new BuyWood());
     }
     // Start is called before the first frame update
     void Start()
@@ -42,51 +44,55 @@ public class SmithyAI : BaseAi
         }
         for (int i = 0; i < goal.m_PreRequisite.Count; i++)
         {
-            if (CheckInventory(goal, i))
-            {
-                return;
-            }
             AddToList(goal, listIncrement, i);
             int temp = m_taskListOptions.Count;
-            int found = listIncrement;
-            Task[] Temptasks = m_taskListOptions[found].ToArray();
-            for (int j = 0; j < m_availableActions.Count; j++)
+            for (int z = 0; z < temp; z++)
             {
-                if (goal.m_PreRequisite[i] == m_availableActions[j].m_effect)
+                if (CheckInventory(goal, i))
                 {
-                    if (found >= listIncrement + 1)
+                    return;
+                }
+                int found = listIncrement;
+                Task[] Temptasks = m_taskListOptions[temp-1-z].ToArray();
+                for (int j = 0; j < m_availableActions.Count; j++)
+                {
+                    if (goal.m_PreRequisite[i] == m_availableActions[j].m_effect)
                     {
-                        m_taskListOptions.Add(FillTaskCopy(Temptasks));
-                        found = m_taskListOptions.Count - 1;
+                        if (found >= listIncrement + 1)
+                        {
+                            m_taskListOptions.Add(FillTaskCopy(Temptasks));
+                            found = m_taskListOptions.Count - 1;
+                        }
+                        switch (m_availableActions[j].m_Task)
+                        {
+                            case "Walk":
+                                Vector3 destination = goal.getDestination();
+                                if (destination != Vector3.zero)
+                                {
+                                    AddToTaskList(new Walk(m_agent, destination, this), found);
+                                }
+                                else
+                                {
+                                    AddToTaskList(new Walk(m_agent, destination, this), found);
+                                    Debug.Log("Walk failed in blacksmith");
+                                }
+                                break;
+                            case "GetOre":
+                                AddToTaskList(new GetOre(m_agent, this), found);
+                                break;
+                            case "GetWood":
+                                AddToTaskList(new GetWood(m_agent, this), found);
+                                break;
+                            case "BuyOre":
+                                AddToTaskList(new BuyOre(m_agent, this), found);
+                                break;
+                            case "BuyWood":
+                                AddToTaskList(new BuyWood(m_agent, this), found);
+                                break;
+
+                        }
+                        found++;
                     }
-                    switch (m_availableActions[j].m_Task)
-                    {
-                        case "Walk":
-                            Vector3 destination = goal.getDestination();
-                            if (destination != Vector3.zero)
-                            {
-                                AddToTaskList(new Walk(m_agent, destination,this), found);
-                            }
-                            else
-                            {
-                                AddToTaskList(new Walk(m_agent, destination, this), found);
-                                Debug.Log("Walk failed in blacksmith");
-                            }
-                            break;
-                        case "GetOre":
-                            for (int k = 0; k < temp; k++)
-                            {
-                                AddToTaskList(new GetOre(m_agent, this), found + k);
-                            }
-                            break;
-                        case "GetWood":
-                            for (int k = 0; k < temp; k++)
-                            {
-                                AddToTaskList(new GetWood(m_agent, this), found + k);
-                            }
-                            break;
-                    }
-                    found++;
                 }
             }
         }
