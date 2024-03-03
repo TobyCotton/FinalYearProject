@@ -24,6 +24,7 @@ public class CreateChisel : Task
         m_Task = "CreateChisel";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
+        m_PreRequisite.Add("Wood");
         m_effect = "Chisel";
         m_priority = 2.0f;
         m_destination = Vector3.zero;
@@ -55,7 +56,7 @@ public class CreateChisel : Task
             }
             if (toRemove2 == null && item.m_name == "Wood")
             {
-                toRemove = item;
+                toRemove2 = item;
             }
         }
         m_baseAi.m_Items.Remove(toRemove);

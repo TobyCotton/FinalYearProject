@@ -13,9 +13,6 @@ public class StoreRoomScript : Building
 
     void Update()
     {
-        foreach (Item item in m_Stored)
-        {
-            Debug.Log(item.m_name);
-        }
+
     }
 }

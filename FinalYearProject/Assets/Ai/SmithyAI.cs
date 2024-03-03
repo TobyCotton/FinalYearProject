@@ -11,6 +11,8 @@ public class SmithyAI : BaseAi
         m_goals.Add(new CreateChisel());
         m_availableActions.Add(new GetOre());
         m_availableActions.Add(new GetWood());
+        m_availableActions.Add(new BuyOre());
+        m_availableActions.Add(new BuyWood());
     }
     // Start is called before the first frame update
     void Start()
@@ -22,6 +24,10 @@ public class SmithyAI : BaseAi
     void Update()
     {
         UpdateToDo();
+        foreach (Item item in m_Items)
+        {
+            Debug.Log(item.m_name);
+        }
         if (m_tasks.Count == 1)
         {
             if (!m_tasks[0].m_executionStarted)
@@ -36,6 +42,8 @@ public class SmithyAI : BaseAi
 
     public void AddToTaskList(Task goal, int listIncrement)
     {
+        List<Task[]> saveBank = new List<Task[]>();
+        bool triggerSave = false;
         if (!CheckPrerequisite(goal, listIncrement))
         {
             return;
@@ -56,8 +64,19 @@ public class SmithyAI : BaseAi
                 {
                     if (found >= listIncrement + 1)
                     {
-                        m_taskListOptions.Add(FillTaskCopy(Temptasks));
-                        found = m_taskListOptions.Count - 1;
+                        int incrementer = 0;
+                        foreach (Task[] list in saveBank)
+                        {
+                            m_taskListOptions.Add(FillTaskCopy(list));
+                            incrementer++;
+                        }
+                        if(incrementer == 0)
+                        {
+                            m_taskListOptions.Add(FillTaskCopy(Temptasks));
+                            incrementer++;
+                        }
+                        found = m_taskListOptions.Count - incrementer;
+                        triggerSave = true;
                     }
                     switch (m_availableActions[j].m_Task)
                     {
@@ -65,7 +84,7 @@ public class SmithyAI : BaseAi
                             Vector3 destination = goal.getDestination();
                             if (destination != Vector3.zero)
                             {
-                                AddToTaskList(new Walk(m_agent, destination,this), found);
+                                AddToTaskList(new Walk(m_agent, destination, this), found);
                             }
                             else
                             {
@@ -76,7 +95,7 @@ public class SmithyAI : BaseAi
                         case "GetOre":
                             for (int k = 0; k < temp; k++)
                             {
-                                AddToTaskList(new GetOre(m_agent, this), found + k);
+                                AddToTaskList(new GetOre(m_agent, this), found+k);
                             }
                             break;
                         case "GetWood":
@@ -85,8 +104,29 @@ public class SmithyAI : BaseAi
                                 AddToTaskList(new GetWood(m_agent, this), found + k);
                             }
                             break;
+                        case "BuyOre":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new BuyOre(m_agent, this), found+k);
+                            }
+                            break;
+                        case "BuyWood":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new BuyWood(m_agent, this), found+k);
+                            }
+                            break;
+
                     }
                     found++;
+                }
+            }
+            if (triggerSave)
+            {
+                triggerSave = false;
+                foreach (List<Task> list in m_taskListOptions)
+                {
+                    saveBank.Add(list.ToArray());
                 }
             }
         }

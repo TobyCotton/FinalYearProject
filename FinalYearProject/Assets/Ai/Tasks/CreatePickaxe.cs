@@ -24,6 +24,7 @@ public class CreatePickaxe : Task
         m_Task = "CreatePickaxe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
+        m_PreRequisite.Add("Wood");
         m_effect = "Pickaxe";
         m_priority = 2.0f;
         m_destination = Vector3.zero;
@@ -53,12 +54,15 @@ public class CreatePickaxe : Task
             {
                 toRemove = item;
             }
-            if (toRemove2 == null && item.m_name == "Wood")
-            {
-                toRemove = item;
-            }
         }
         m_baseAi.m_Items.Remove(toRemove);
+        foreach (Item item in m_baseAi.m_Items)
+        {
+            if (toRemove2 == null && item.m_name == "Wood")
+            {
+                toRemove2 = item;
+            }
+        }
         m_baseAi.m_Items.Remove(toRemove2);
         return true;
     }

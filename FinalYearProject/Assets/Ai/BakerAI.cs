@@ -8,6 +8,7 @@ public class BakerAI : BaseAi
     {
         m_goals.Add(new CreateFood());
         m_availableActions.Add(new GetWheat());
+        m_availableActions.Add(new BuyWheat());
     }
     void Start()
     {
@@ -30,6 +31,8 @@ public class BakerAI : BaseAi
 
     public void AddToTaskList(Task goal, int listIncrement)
     {
+        List<Task[]> saveBank = new List<Task[]>();
+        bool triggerSave = false;
         if (!CheckPrerequisite(goal, listIncrement))
         {
             return;
@@ -50,8 +53,19 @@ public class BakerAI : BaseAi
                 {
                     if (found >= listIncrement + 1)
                     {
-                        m_taskListOptions.Add(FillTaskCopy(Temptasks));
-                        found = m_taskListOptions.Count - 1;
+                        int incrementer = 0;
+                        foreach (Task[] list in saveBank)
+                        {
+                            m_taskListOptions.Add(FillTaskCopy(list));
+                            incrementer++;
+                        }
+                        if (incrementer == 0)
+                        {
+                            m_taskListOptions.Add(FillTaskCopy(Temptasks));
+                            incrementer++;
+                        }
+                        found = m_taskListOptions.Count - incrementer;
+                        triggerSave = true;
                     }
                     switch (m_availableActions[j].m_Task)
                     {
@@ -73,8 +87,22 @@ public class BakerAI : BaseAi
                                 AddToTaskList(new GetWheat(m_agent, this), found + k);
                             }
                             break;
+                        case "BuyWheat":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new BuyWheat(m_agent, this), found + k);
+                            }
+                            break;
                     }
                     found++;
+                }
+            }
+            if (triggerSave)
+            {
+                triggerSave = false;
+                foreach (List<Task> list in m_taskListOptions)
+                {
+                    saveBank.Add(list.ToArray());
                 }
             }
         }
