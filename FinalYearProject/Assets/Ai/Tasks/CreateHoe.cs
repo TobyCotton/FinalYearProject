@@ -48,18 +48,21 @@ public class CreateHoe : Task
         m_BlacksmithScript.m_hoeRequested = false;
         Item toRemove = null;
         Item toRemove2 = null;
-        foreach(Item item in m_baseAi.m_Items)
+        foreach (Item item in m_baseAi.m_Items)
         {
-            if(toRemove == null && item.m_name == "Ore")
+            if (toRemove == null && item.m_name == "Ore")
             {
                 toRemove = item;
             }
+        }
+        m_baseAi.m_Items.Remove(toRemove);
+        foreach (Item item in m_baseAi.m_Items)
+        {
             if (toRemove2 == null && item.m_name == "Wood")
             {
                 toRemove2 = item;
             }
         }
-        m_baseAi.m_Items.Remove(toRemove);
         m_baseAi.m_Items.Remove(toRemove2);
         return true;
     }

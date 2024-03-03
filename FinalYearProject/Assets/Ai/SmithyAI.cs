@@ -24,6 +24,10 @@ public class SmithyAI : BaseAi
     void Update()
     {
         UpdateToDo();
+        foreach (Item item in m_Items)
+        {
+            Debug.Log(item.m_name);
+        }
         if (m_tasks.Count == 1)
         {
             if (!m_tasks[0].m_executionStarted)
@@ -54,7 +58,6 @@ public class SmithyAI : BaseAi
             int temp = m_taskListOptions.Count;
             int found = listIncrement;
             Task[] Temptasks = m_taskListOptions[found].ToArray();
-            int digitSave = -1;
             for (int j = 0; j < m_availableActions.Count; j++)
             {
                 if (goal.m_PreRequisite[i] == m_availableActions[j].m_effect)
@@ -116,14 +119,14 @@ public class SmithyAI : BaseAi
 
                     }
                     found++;
-                    if(triggerSave)
-                    {
-                        triggerSave = false;
-                        foreach (List<Task> list in m_taskListOptions)
-                        {
-                            saveBank.Add(list.ToArray());
-                        }
-                    }
+                }
+            }
+            if (triggerSave)
+            {
+                triggerSave = false;
+                foreach (List<Task> list in m_taskListOptions)
+                {
+                    saveBank.Add(list.ToArray());
                 }
             }
         }

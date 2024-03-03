@@ -54,12 +54,15 @@ public class CreatePickaxe : Task
             {
                 toRemove = item;
             }
+        }
+        m_baseAi.m_Items.Remove(toRemove);
+        foreach (Item item in m_baseAi.m_Items)
+        {
             if (toRemove2 == null && item.m_name == "Wood")
             {
                 toRemove2 = item;
             }
         }
-        m_baseAi.m_Items.Remove(toRemove);
         m_baseAi.m_Items.Remove(toRemove2);
         return true;
     }
