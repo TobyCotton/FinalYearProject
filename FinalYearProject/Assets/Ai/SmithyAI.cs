@@ -9,10 +9,13 @@ public class SmithyAI : BaseAi
         m_goals.Add(new CreateHoe());
         m_goals.Add(new CreateHorseshoe());
         m_goals.Add(new CreateChisel());
+        m_goals.Add(new CreateAxe());
+        m_goals.Add(new CreatePickaxe());
         m_availableActions.Add(new GetOre());
         m_availableActions.Add(new GetWood());
         m_availableActions.Add(new BuyOre());
         m_availableActions.Add(new BuyWood());
+        m_availableActions.Add(new GetHandle());
     }
     // Start is called before the first frame update
     void Start()
@@ -114,6 +117,12 @@ public class SmithyAI : BaseAi
                             for (int k = 0; k < temp; k++)
                             {
                                 AddToTaskList(new BuyWood(m_agent, this), found+k);
+                            }
+                            break;
+                        case "GetHandle":
+                            for (int k = 0; k < temp; k++)
+                            {
+                                AddToTaskList(new GetHandle(m_agent, this), found + k);
                             }
                             break;
 

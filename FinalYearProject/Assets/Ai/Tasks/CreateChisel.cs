@@ -12,7 +12,7 @@ public class CreateChisel : Task
         m_Task = "CreateChisel";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
-        m_PreRequisite.Add("Wood");
+        m_PreRequisite.Add("Handle");
         m_effect = "Chisel";
         m_priority = 2.0f;
         m_destination = Vector3.zero;
@@ -24,7 +24,7 @@ public class CreateChisel : Task
         m_Task = "CreateChisel";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
-        m_PreRequisite.Add("Wood");
+        m_PreRequisite.Add("Handle");
         m_effect = "Chisel";
         m_priority = 2.0f;
         m_destination = Vector3.zero;
@@ -54,7 +54,7 @@ public class CreateChisel : Task
             {
                 toRemove = item;
             }
-            if (toRemove2 == null && item.m_name == "Wood")
+            if (toRemove2 == null && item.m_name == "Handle")
             {
                 toRemove2 = item;
             }
