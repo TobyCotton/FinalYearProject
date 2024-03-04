@@ -51,6 +51,7 @@ public class BuyOre : Task
     }
     public override bool Executing()
     {
+        m_market.m_money -= 2;
         m_baseAi.m_Items.Add(new Item("Ore", 1));
         return true;
     }

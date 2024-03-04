@@ -8,14 +8,14 @@ public class CreateFood : Task
     private Vector3 m_destination;
     private BakeryScript m_BakeryScript;
 
-    public CreateFood(BaseAi ai)
+    public CreateFood(BaseAi ai,float priority = 2.0f)
     {
         m_Weight = 1;
         m_Task = "CreateFood";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Wheat");
         m_effect = "Food";
-        m_priority = 2.0f;
+        m_priority = priority;
         m_destination = Vector3.zero;
         m_baseAi = ai;
     }

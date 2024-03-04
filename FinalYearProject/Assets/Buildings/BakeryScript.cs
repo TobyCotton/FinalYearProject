@@ -10,7 +10,7 @@ public class BakeryScript : Building
     public bool m_requested = false;
     public BakeryScript()
     {
-        m_IdealFoodCount = 6;
+        m_IdealFoodCount = 8;
     }
     private void Start()
     {
@@ -25,11 +25,16 @@ public class BakeryScript : Building
         }
         if(m_Baker)
         {
-            if(m_foodCount < m_IdealFoodCount && !m_requested)
+            if((m_foodCount < m_IdealFoodCount && !m_requested) || m_foodCount == 0)
             {
-                if (m_Baker.PriorityChecker(new CreateFood()))
+                float priority = 2.0f;
+                if(m_foodCount == 0)
                 {
-                    m_Baker.AddToTaskList(new CreateFood(m_Baker), 0);
+                    priority = 500.0f;
+                }
+                if (m_Baker.PriorityChecker(new CreateFood(m_Baker,priority)))
+                {
+                    m_Baker.AddToTaskList(new CreateFood(m_Baker,priority), 0);
                     m_Baker.SetTaskList();
                 }
                 else
