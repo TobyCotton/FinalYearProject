@@ -50,6 +50,18 @@ public class StoreItem : Task
         if(m_storeRoom)
         {
             m_storeRoom.m_Stored.Add(m_itemToStore);
+            if(m_itemToStore.m_name == "Ore")
+            {
+                m_storeRoom.m_OreStored++;
+            }
+            else if (m_itemToStore.m_name == "Wood")
+            {
+                m_storeRoom.m_WoodStored++;
+            }
+            else
+            {
+                m_storeRoom.m_WheatStored++;
+            }
             m_baseAi.m_Items.Remove(m_itemToStore);
         }
         else

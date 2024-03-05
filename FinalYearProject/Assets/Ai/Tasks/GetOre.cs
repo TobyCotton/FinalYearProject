@@ -66,6 +66,7 @@ public class GetOre : Task
             {
                 m_baseAi.m_Items.Add(item);
                 m_storeRoom.m_Stored.Remove(item);
+                m_storeRoom.m_OreStored--;
                 return true;
             }
         }

@@ -50,6 +50,7 @@ public class GetWheat : Task
                 m_storeRoom = storeRooms[i];
                 shortestDistance = distance;
                 m_destination = storeRooms[i].transform.position;
+                m_storeRoom.m_WheatStored--;
             }
         }
         if (m_destination == Vector3.zero)

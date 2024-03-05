@@ -10,7 +10,7 @@ public class BakeryScript : Building
     public bool m_requested = false;
     public BakeryScript()
     {
-        m_IdealFoodCount = 8;
+        m_IdealFoodCount = 9;
     }
     private void Start()
     {

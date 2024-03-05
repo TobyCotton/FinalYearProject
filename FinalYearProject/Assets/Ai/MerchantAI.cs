@@ -14,6 +14,7 @@ public class MerchantAI : BaseAi
         for (int i = 0; i < temp.Length; i++)
         {
             m_homePosition = temp[i].transform.position;
+            m_work = temp[i];
             i = temp.Length;
         }
     }
