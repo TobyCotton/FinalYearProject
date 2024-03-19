@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class SmithyAI : BaseAi
 {
+    public TMP_Text m_task;
     public SmithyAI()
     {
         m_goals.Add(new CreateHoe());
@@ -26,6 +28,10 @@ public class SmithyAI : BaseAi
     // Update is called once per frame
     void Update()
     {
+        if (m_tasks.Count > 0)
+        {
+            m_task.text = m_tasks[0].m_Task;
+        }
         UpdateToDo();
         foreach (Item item in m_Items)
         {

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BakerAI : BaseAi
 {
+    public TMP_Text m_task;
     public BakerAI()
     {
         m_goals.Add(new CreateFood());
@@ -16,6 +18,10 @@ public class BakerAI : BaseAi
     }
     void Update()
     {
+        if (m_tasks.Count > 0)
+        {
+            m_task.text = m_tasks[0].m_Task;
+        }
         UpdateToDo();
         if (m_tasks.Count == 1)
         {

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class WittlerAI : BaseAi
 {
+    public TMP_Text m_task;
     public WittlerAI()
     {
         m_goals.Add(new CreateHandle());
@@ -19,6 +21,10 @@ public class WittlerAI : BaseAi
     // Update is called once per frame
     void Update()
     {
+        if (m_tasks.Count > 0)
+        {
+            m_task.text = m_tasks[0].m_Task;
+        }
         UpdateToDo();
         if (m_tasks.Count == 1)
         {

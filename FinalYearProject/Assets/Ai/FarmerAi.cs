@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class FarmerAi : BaseAi
 {
+    public TMP_Text m_task;
     public FarmerAi()
     {
         m_goals.Add(new HarvestWheat());
@@ -18,6 +20,10 @@ public class FarmerAi : BaseAi
 
     void Update()
     {
+        if (m_tasks.Count > 0)
+        {
+            m_task.text = m_tasks[0].m_Task;
+        }
         UpdateToDo();
         if (m_tasks.Count == 1)
         {

@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class MerchantAI : BaseAi
 {
+    public TMP_Text m_task;
     public MerchantAI()
     {
         m_goals.Add(new Sell());
@@ -20,6 +22,10 @@ public class MerchantAI : BaseAi
     }
     void Update()
     {
+        if (m_tasks.Count > 0)
+        {
+            m_task.text = m_tasks[0].m_Task;
+        }
         UpdateToDo();
         if (m_tasks.Count == 1)
         {

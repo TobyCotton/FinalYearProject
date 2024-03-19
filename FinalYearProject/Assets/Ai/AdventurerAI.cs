@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class AdventurerAI : BaseAi
 {
+    public TMP_Text m_task;
     public AdventurerAI()
     {
         m_goals.Add(new HarvestOre());
@@ -18,6 +21,10 @@ public class AdventurerAI : BaseAi
 
     void Update()
     {
+        if(m_tasks.Count > 0)
+        {
+            m_task.text = m_tasks[0].m_Task;
+        }
         UpdateToDo();
         if (m_tasks.Count == 1)
         {
