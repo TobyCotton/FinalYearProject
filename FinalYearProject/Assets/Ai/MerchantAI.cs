@@ -6,12 +6,15 @@ using UnityEngine;
 public class MerchantAI : BaseAi
 {
     public TMP_Text m_task;
+    public TMP_Text m_Goal;
+    public TMP_Text m_job;
     public MerchantAI()
     {
         m_goals.Add(new Sell());
     }
     void Start()
     {
+        m_job.text = "Merchant";
         MarketScript[] temp = Object.FindObjectsOfType<MarketScript>();
         for (int i = 0; i < temp.Length; i++)
         {
@@ -22,20 +25,39 @@ public class MerchantAI : BaseAi
     }
     void Update()
     {
-        if (m_tasks.Count > 0)
+        if (m_hunger < 100.0f)
         {
-            m_task.text = m_tasks[0].m_Task;
-        }
-        UpdateToDo();
-        if (m_tasks.Count == 1)
-        {
-            if (!m_tasks[0].m_executionStarted)
+            if (m_tasks.Count > 0)
             {
-                Task tempStore = m_tasks[0];
-                m_tasks.Clear();
-                AddToTaskList(tempStore, 0);
-                SetTaskList();
+                if (m_tasks[m_tasks.Count - 1].m_Task == "Walk")
+                {
+                    m_task.text = m_tasks[m_tasks.Count - 2].m_Task;
+                }
+                else
+                {
+                    m_task.text = m_tasks[m_tasks.Count - 1].m_Task;
+                }
+                m_Goal.text = m_tasks[0].m_Task;
             }
+            UpdateToDo();
+            if (m_tasks.Count == 1)
+            {
+                if (!m_tasks[0].m_executionStarted)
+                {
+                    Task tempStore = m_tasks[0];
+                    m_tasks.Clear();
+                    AddToTaskList(tempStore, 0);
+                    SetTaskList();
+                }
+            }
+        }
+        else
+        {
+            Destroy(m_task);
+            Destroy(m_Goal);
+            Destroy(m_job);
+            Destroy(gameObject);
+            Destroy(this);
         }
     }
 

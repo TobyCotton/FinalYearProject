@@ -10,7 +10,7 @@ public class GetHoe : Task
     private BlacksmithScript m_blacksmith;
     public GetHoe(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetHoe";
         m_PreRequisite.Add("InRange");
         m_effect = "Hoe";
@@ -20,7 +20,7 @@ public class GetHoe : Task
     }
     public GetHoe()
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetHoe";
         m_PreRequisite.Add("InRange");
         m_effect = "Hoe";

@@ -8,7 +8,7 @@ public class HarvestOre : Task
     MineScript m_mine;
     public HarvestOre(BaseAi ai,MineScript mine,Vector3 location)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "HarvestOre";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Pickaxe");
@@ -20,7 +20,7 @@ public class HarvestOre : Task
     }
     public HarvestOre()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "HarvestOre";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Pickaxe");

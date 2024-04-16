@@ -11,7 +11,7 @@ public class GetAxe : Task
 
     public GetAxe(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetAxe";
         m_PreRequisite.Add("InRange");
         m_effect = "Axe";
@@ -21,7 +21,7 @@ public class GetAxe : Task
     }
     public GetAxe()
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetAxe";
         m_PreRequisite.Add("InRange");
         m_effect = "Axe";

@@ -15,7 +15,7 @@ public class BaseAi : MonoBehaviour
     public List<Task> m_toDoGoals = new List<Task>();
     public NavMeshAgent m_agent;
     public Building m_work;
-    protected List<Task> m_tasks = new List<Task>();
+    public List<Task> m_tasks = new List<Task>();
     protected List<List<Task>> m_taskListOptions = new List<List<Task>>();
     public List<Item> m_Items = new List<Item>();
     protected Vector3 m_homePosition = Vector3.zero;
@@ -58,13 +58,13 @@ public class BaseAi : MonoBehaviour
         {
             if (m_tasks.Count != 0)
             {
-                if (m_tasks[0] is GetFood) { }
+                if (m_tasks[0] is GetFood || m_tasks[0] is BuyFood) { }
                 else
                 {
                     bool isIn = false;
                     for (int i = 0; i < m_toDoGoals.Count; i++)
                     {
-                        if (m_toDoGoals[i] is GetFood)
+                        if (m_toDoGoals[i] is GetFood || m_toDoGoals[i] is BuyFood)
                         {
                             isIn = true;
                         }
@@ -73,20 +73,55 @@ public class BaseAi : MonoBehaviour
                     {
                         if (PriorityChecker(new GetFood()))
                         {
-                            m_tasks.Add(new GetFood(m_agent,this));
-                            m_skip = true;
+                            Task a = new GetFood(m_agent, this);
+                            a.getDestination();
+                            Task b = new BuyFood(this);
+                            b.getDestination();
+                            if (WeightChecker(a,b) && !a.m_failed)
+                            {
+                                m_tasks.Add(new GetFood(m_agent, this));
+                                m_skip = true;
+                            }
+                            else if(!b.m_failed)
+                            {
+                                m_tasks.Add(new BuyFood(this));
+                                m_skip = true;
+                            }
                         }
                         else
                         {
-                            m_toDoGoals.Add(new GetFood(m_agent,this));
+                            Task a = new GetFood(m_agent, this);
+                            a.getDestination();
+                            Task b = new BuyFood(this);
+                            b.getDestination();
+                            if (WeightChecker(a, b) && !a.m_failed)
+                            {
+                                m_toDoGoals.Add(new GetFood(m_agent, this));
+                            }
+                            else if (!b.m_failed)
+                            {
+                                m_toDoGoals.Add(new BuyFood(this));
+                            }
                         }
                     }
                 }
             }
             else
             {
-                m_tasks.Add(new GetFood(m_agent, this));
-                m_skip = true;
+                Task a = new GetFood(m_agent, this);
+                a.getDestination();
+                Task b = new BuyFood(this);
+                b.getDestination();
+                if (WeightChecker(a, b) && !a.m_failed)
+                {
+                    m_tasks.Add(new GetFood(m_agent, this));
+                    m_skip = true;
+                }
+                else if (!b.m_failed)
+                {
+                    m_tasks.Add(new BuyFood(this));
+                    m_skip = true;
+                }
             }
         }
         int taskLength = m_tasks.Count;
@@ -313,5 +348,14 @@ public class BaseAi : MonoBehaviour
         m_tasks[0].m_priority--;
         m_toDoGoals.Add(m_tasks[0]);
         m_tasks.Clear();
+    }
+
+    public bool WeightChecker(Task goalA, Task goalB)
+    {
+        if(goalA.m_Weight <= goalB.m_Weight)
+        {
+            return true;
+        }
+        return false;
     }
 }

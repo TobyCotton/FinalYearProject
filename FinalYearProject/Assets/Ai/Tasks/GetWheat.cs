@@ -10,7 +10,7 @@ public class GetWheat : Task
     private StoreRoomScript m_storeRoom;
     public GetWheat(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetWheat";
         m_PreRequisite.Add("InRange");
         m_effect = "Wheat";
@@ -20,7 +20,7 @@ public class GetWheat : Task
     }
     public GetWheat()
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetWheat";
         m_PreRequisite.Add("InRange");
         m_effect = "Wheat";

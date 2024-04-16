@@ -11,7 +11,7 @@ public class GetPickaxe : Task
 
     public GetPickaxe(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetPickaxe";
         m_PreRequisite.Add("InRange");
         m_effect = "Pickaxe";
@@ -21,7 +21,7 @@ public class GetPickaxe : Task
     }
     public GetPickaxe()
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetPickaxe";
         m_PreRequisite.Add("InRange");
         m_effect = "Pickaxe";

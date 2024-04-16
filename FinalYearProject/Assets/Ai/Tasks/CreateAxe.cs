@@ -8,7 +8,7 @@ public class CreateAxe : Task
     private BlacksmithScript m_BlacksmithScript;
     public CreateAxe(BaseAi ai)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateAxe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
@@ -20,7 +20,7 @@ public class CreateAxe : Task
     }
     public CreateAxe()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateAxe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");

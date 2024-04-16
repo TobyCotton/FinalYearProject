@@ -12,7 +12,7 @@ public class Task//Create a cooldown period for tasks if they fail
 {
     public List<string> m_PreRequisite;
     public string m_Task;
-    public int m_Weight;
+    public float m_Weight;
     public string m_effect;
     public float m_priority = -1.0f;
     public bool m_executionStarted;

@@ -8,7 +8,7 @@ public class CreateHoe : Task
     private BlacksmithScript m_BlacksmithScript;
     public CreateHoe(BaseAi ai)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateHoe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
@@ -20,7 +20,7 @@ public class CreateHoe : Task
     }
     public CreateHoe()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateHoe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");

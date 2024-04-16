@@ -9,7 +9,7 @@ public class Idle : Task//Currently the same as walk will edit once designated i
     private Vector3 m_destination;
     public Idle(NavMeshAgent agent, Vector3 destination, BaseAi ai, int StoppingDistance = 6)
     {
-        m_Weight = 2;
+        m_Weight = 2.0f;
         m_Task = "Idle";
         m_destination = destination;
         m_agent = agent;
@@ -21,7 +21,7 @@ public class Idle : Task//Currently the same as walk will edit once designated i
     }
     public Idle()
     {
-        m_Weight = 2;
+        m_Weight = 2.0f;
         m_Task = "Idle";
         m_destination = Vector3.zero;
         m_agent = null;

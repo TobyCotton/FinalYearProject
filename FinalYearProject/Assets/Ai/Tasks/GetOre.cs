@@ -10,7 +10,7 @@ public class GetOre : Task
     private StoreRoomScript m_storeRoom;
     public GetOre(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetOre";
         m_PreRequisite.Add("InRange");
         m_effect = "Ore";
@@ -20,7 +20,7 @@ public class GetOre : Task
     }
     public GetOre()
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetOre";
         m_PreRequisite.Add("InRange");
         m_effect = "Ore";

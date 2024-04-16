@@ -11,7 +11,7 @@ public class GetFood : Task
 
     public GetFood(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetFood";
         m_PreRequisite.Add("InRange");
         m_effect = "Full";
@@ -22,7 +22,7 @@ public class GetFood : Task
     }
     public GetFood() 
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetFood";
         m_PreRequisite.Add("InRange");
         m_effect = "Full";
@@ -39,12 +39,16 @@ public class GetFood : Task
         for (int i = 0; i < bakerys.Length; i++)
         {
             float distance = Vector3.Distance(currentPosition, bakerys[i].transform.position);
-            if (distance < shortestDistance)
+            if (distance < shortestDistance && bakerys[i].m_foodCount > 0)
             {
                 shortestDistance = distance;
                 m_destination = bakerys[i].transform.position;
                 m_bakery = bakerys[i];
             }
+        }
+        if(m_destination ==Vector3.zero)
+        {
+            TaskFailed();
         }
         return m_destination;
     }
@@ -58,6 +62,11 @@ public class GetFood : Task
                 m_baseAi.m_hunger = 0;
                 m_bakery.m_foodCount--;
                 return true;
+            }
+            else
+            {
+                m_baseAi.m_tasks.Add(new BuyFood(m_baseAi));
+                m_baseAi.m_tasks.RemoveAt(0);
             }
         }
         return false;

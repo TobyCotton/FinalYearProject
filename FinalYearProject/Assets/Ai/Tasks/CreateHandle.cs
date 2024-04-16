@@ -8,7 +8,7 @@ public class CreateHandle : Task
     private WoodWorkerScript m_WoodWorkerScript;
     public CreateHandle(BaseAi ai)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateHandle";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Wood");
@@ -19,7 +19,7 @@ public class CreateHandle : Task
     }
     public CreateHandle()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateHandle";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Wood");

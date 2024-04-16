@@ -10,18 +10,18 @@ public class Walk : Task
 
     public Walk(NavMeshAgent agent, Vector3 destination, BaseAi ai, int StoppingDistance = 6)
     {
-        m_Weight = 1;
         m_Task = "Walk";
         m_destination = destination;
         m_agent = agent;
         m_agent.stoppingDistance = StoppingDistance;
+        m_Weight = m_agent.remainingDistance/10.0f;
         m_effect = "InRange";
         m_time = 0;
         m_baseAi = ai;
     }
     public Walk()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "Walk";
         m_destination = Vector3.zero;
         m_effect = "InRange";

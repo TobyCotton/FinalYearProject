@@ -8,7 +8,7 @@ public class HarvestWheat : Task
     private Vector3 m_destination;
     public HarvestWheat(BaseAi ai)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "HarvestWheat";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Hoe");
@@ -19,7 +19,7 @@ public class HarvestWheat : Task
     }
     public HarvestWheat()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "HarvestWheat";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Hoe");

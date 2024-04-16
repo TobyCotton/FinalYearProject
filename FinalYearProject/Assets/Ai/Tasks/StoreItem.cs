@@ -15,7 +15,7 @@ public class StoreItem : Task
         m_PreRequisite.Add("InRange");
         m_effect = "ItemStored";
         m_priority = 3.0f;
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "StoreItem";
     }
     public StoreItem()
@@ -23,7 +23,7 @@ public class StoreItem : Task
         m_PreRequisite.Add("InRange");
         m_effect = "ItemStored";
         m_priority = 2.0f;
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "StoreItem";
         m_destination = Vector3.zero;
     }

@@ -8,7 +8,7 @@ public class CreateHorseshoe : Task
     private BlacksmithScript m_BlacksmithScript;
     public CreateHorseshoe(BaseAi ai)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateHorseshoe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
@@ -19,7 +19,7 @@ public class CreateHorseshoe : Task
     }
     public CreateHorseshoe()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateHorseshoe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");

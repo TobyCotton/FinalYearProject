@@ -8,7 +8,7 @@ public class HarvestWood : Task
     ForestScript m_woods;
     public HarvestWood(BaseAi ai, ForestScript woods, Vector3 location)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "HarvestWood";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Axe");
@@ -20,7 +20,7 @@ public class HarvestWood : Task
     }
     public HarvestWood()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "HarvestWood";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Axe");

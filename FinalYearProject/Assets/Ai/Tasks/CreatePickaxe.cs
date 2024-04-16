@@ -8,7 +8,7 @@ public class CreatePickaxe : Task
     private BlacksmithScript m_BlacksmithScript;
     public CreatePickaxe(BaseAi ai)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreatePickaxe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
@@ -20,7 +20,7 @@ public class CreatePickaxe : Task
     }
     public CreatePickaxe()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreatePickaxe";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");

@@ -10,7 +10,7 @@ public class GetWood : Task
     private StoreRoomScript m_storeRoom;
     public GetWood(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetWood";
         m_PreRequisite.Add("InRange");
         m_effect = "Wood";
@@ -20,7 +20,7 @@ public class GetWood : Task
     }
     public GetWood()
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetWood";
         m_PreRequisite.Add("InRange");
         m_effect = "Wood";

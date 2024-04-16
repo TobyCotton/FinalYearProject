@@ -10,7 +10,7 @@ public class CreateFood : Task
 
     public CreateFood(BaseAi ai,float priority = 2.0f)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateFood";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Wheat");
@@ -21,7 +21,7 @@ public class CreateFood : Task
     }
     public CreateFood()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateFood";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Wheat");

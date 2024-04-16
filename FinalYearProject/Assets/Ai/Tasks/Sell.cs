@@ -12,7 +12,7 @@ public class Sell : Task
     {
         m_storeRoom = storeRoom;
         m_ItemName = item;
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "Sell";
         m_PreRequisite.Add("InRange");
         m_effect = "Sold";
@@ -21,7 +21,7 @@ public class Sell : Task
     }
     public Sell()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "Sell";
         m_PreRequisite.Add("InRange");
         m_effect = "Sold";

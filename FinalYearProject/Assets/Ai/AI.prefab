@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4700196424210380296}
   - component: {fileID: 7672203093082613413}
   - component: {fileID: 8494508401911662688}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,3 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_agent: {fileID: 7672203093082613413}
+  m_work: {fileID: 0}
+  m_hunger: 0
+  m_visible: 1
+  m_multipleIdle: 0

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Floatingtext : MonoBehaviour
@@ -21,7 +22,7 @@ public class Floatingtext : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.rotation = Quaternion.LookRotation(transform.position-mainCamera.position);
-        transform.position = unit.position+ offset;
+        transform.rotation = Quaternion.LookRotation(transform.position - mainCamera.position);
+        transform.position = unit.position + offset;
     }
 }

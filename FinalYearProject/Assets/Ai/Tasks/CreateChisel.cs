@@ -8,7 +8,7 @@ public class CreateChisel : Task
     private BlacksmithScript m_BlacksmithScript;
     public CreateChisel(BaseAi ai)
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateChisel";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");
@@ -20,7 +20,7 @@ public class CreateChisel : Task
     }
     public CreateChisel()
     {
-        m_Weight = 1;
+        m_Weight = 1.0f;
         m_Task = "CreateChisel";
         m_PreRequisite.Add("InRange");
         m_PreRequisite.Add("Ore");

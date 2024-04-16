@@ -10,7 +10,7 @@ public class GetHandle : Task
     private WoodWorkerScript m_wittler;
     public GetHandle(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetHandle";
         m_PreRequisite.Add("InRange");
         m_effect = "Handle";
@@ -20,7 +20,7 @@ public class GetHandle : Task
     }
     public GetHandle()
     {
-        m_Weight = 0;
+        m_Weight = 1.0f;
         m_Task = "GetHandle";
         m_PreRequisite.Add("InRange");
         m_effect = "Handle";

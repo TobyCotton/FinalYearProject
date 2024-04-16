@@ -10,7 +10,7 @@ public class BuyOre : Task
     private MarketScript m_market;
     public BuyOre(NavMeshAgent agent, BaseAi ai)
     {
-        m_Weight = 500;
+        m_Weight = 500.0f;
         m_Task = "BuyOre";
         m_PreRequisite.Add("InRange");
         m_effect = "Ore";
@@ -20,7 +20,7 @@ public class BuyOre : Task
     }
     public BuyOre()
     {
-        m_Weight = 500;
+        m_Weight = 500.0f;
         m_Task = "BuyOre";
         m_PreRequisite.Add("InRange");
         m_effect = "Ore";
@@ -43,9 +43,18 @@ public class BuyOre : Task
                 m_destination = markets[i].transform.position;
             }
         }
+
         if (m_destination == Vector3.zero)
         {
             TaskFailed();
+        }
+        else
+        {
+            if (m_market.m_money <= 1)
+            {
+                TaskFailed();
+            }
+            m_Weight = 10.0f / m_market.m_money;
         }
         return m_destination;
     }
