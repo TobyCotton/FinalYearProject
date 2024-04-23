@@ -7,9 +7,9 @@ using UnityEngine.AI;
 
 public class FarmerAi : BaseAi
 {
-    public TMP_Text m_task;
-    public TMP_Text m_Goal;
-    public TMP_Text m_job;
+    private TMP_Text m_task;
+    private TMP_Text m_Goal;
+    private TMP_Text m_job;
     public FarmerAi()
     {
         m_goals.Add(new HarvestWheat());
@@ -27,20 +27,20 @@ public class FarmerAi : BaseAi
         {
             if (m_tasks.Count > 0)
             {
-                if (m_tasks[m_tasks.Count - 1].m_Task == "Walk")
+                if (m_tasks[m_tasks.Count - 1].getTaskName() == "Walk")
                 {
-                    m_task.text = m_tasks[m_tasks.Count - 2].m_Task;
+                    m_task.text = m_tasks[m_tasks.Count - 2].getTaskName();
                 }
                 else
                 {
-                    m_task.text = m_tasks[m_tasks.Count - 1].m_Task;
+                    m_task.text = m_tasks[m_tasks.Count - 1].getTaskName();
                 }
-                m_Goal.text = m_tasks[0].m_Task;
+                m_Goal.text = m_tasks[0].getTaskName();
             }
             UpdateToDo();
             if (m_tasks.Count == 1)
             {
-                if (!m_tasks[m_tasks.Count - 1].m_executionStarted)
+                if (!m_tasks[m_tasks.Count - 1].getExcuted())
                 {
                     Task tempStore = m_tasks[0];
                     m_tasks.Clear();
@@ -66,7 +66,7 @@ public class FarmerAi : BaseAi
         {
             return;
         }
-        for (int i = 0; i < goal.m_PreRequisite.Count; i++)
+        for (int i = 0; i < goal.getPrerequisite().Count; i++)
         {
             if(CheckInventory(goal,i))
             {
@@ -78,7 +78,7 @@ public class FarmerAi : BaseAi
             Task[] Temptasks = m_taskListOptions[found].ToArray();
             for (int j = 0; j < m_availableActions.Count; j++)
             {
-                if (goal.m_PreRequisite[i] == m_availableActions[j].m_effect)
+                if (goal.getPrerequisite()[i] == m_availableActions[j].getEffect())
                 {
                     if (found >= listIncrement + 1)
                     {
@@ -96,7 +96,7 @@ public class FarmerAi : BaseAi
                         found = m_taskListOptions.Count - incrementer;
                         triggerSave = true;
                     }
-                    switch (m_availableActions[j].m_Task)
+                    switch (m_availableActions[j].getTaskName())
                     {
                         case "GetHoe":
                             for (int k = 0; k < temp; k++)

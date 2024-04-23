@@ -6,7 +6,7 @@ using static UnityEditor.Progress;
 
 public class Sell : Task
 {
-    StoreRoomScript m_storeRoom;
+    private StoreRoomScript m_storeRoom;
     string m_ItemName;
     public Sell(string item,BaseAi ai,StoreRoomScript storeRoom)
     {
@@ -35,24 +35,24 @@ public class Sell : Task
     public override bool Executing()
     {
         Item toRemove = null;
-        for (int i = 0; i < m_storeRoom.m_Stored.Count; i++)
+        for (int i = 0; i < m_storeRoom.getStored().Count; i++)
         {
-            if (m_storeRoom.m_Stored[i].m_name == m_ItemName)
+            if (m_storeRoom.getStored()[i].m_name == m_ItemName)
             {
-                toRemove = m_storeRoom.m_Stored[i];
+                toRemove = m_storeRoom.getStored()[i];
             }
         }
         if (toRemove != null)
         {
-            m_storeRoom.m_Stored.Remove(toRemove);
-            MarketScript addMoney = m_baseAi.m_work.GetComponent<MarketScript>();
+            m_storeRoom.getStored().Remove(toRemove);
+            MarketScript addMoney = m_baseAi.getWork().GetComponent<MarketScript>();
             if (addMoney != null)
             {
                 addMoney.m_money++;
             }
 
         }
-        m_storeRoom.m_requested = false;
+        m_storeRoom.setRequested(false);
         return true;
     }
 }

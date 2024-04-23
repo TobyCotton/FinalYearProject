@@ -52,7 +52,7 @@ public class GetAxe : Task
         {
             if (m_blacksmith.m_Axes > 0)
             {
-                m_baseAi.m_Items.Add(new Item("Axe", 3));
+                m_baseAi.getItems().Add(new Item("Axe", 3));
                 m_blacksmith.m_Axes--;
             }
             else

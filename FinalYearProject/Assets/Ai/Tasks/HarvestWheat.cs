@@ -29,9 +29,9 @@ public class HarvestWheat : Task
     }
     public override Vector3 getDestination()
     {
-        if (m_baseAi.m_work)
+        if (m_baseAi.getWork())
         {
-            m_destination = m_baseAi.m_work.transform.position;
+            m_destination = m_baseAi.getWork().transform.position;
             return m_destination;
         }
         return Vector3.zero;
@@ -39,29 +39,29 @@ public class HarvestWheat : Task
     public override bool Executing()
     {
         Item toRemove = null;
-        for(int i = 0; i < m_baseAi.m_Items.Count; i++)
+        for(int i = 0; i < m_baseAi.getItems().Count; i++)
         {
-            if (m_baseAi.m_Items[i].m_name == "Hoe")
+            if (m_baseAi.getItems()[i].m_name == "Hoe")
             {
-                if(!m_baseAi.m_Items[i].ReduceDurability())
+                if(!m_baseAi.getItems()[i].ReduceDurability())
                 {
-                    toRemove = m_baseAi.m_Items[i];
+                    toRemove = m_baseAi.getItems()[i];
                 }
             }
         }
         if (toRemove != null) 
         {
-            m_baseAi.m_Items.Remove(toRemove);
+            m_baseAi.getItems().Remove(toRemove);
         }
-        m_baseAi.m_Items.Add(new Item("Wheat", 1));
-        m_baseAi.m_Items.Add(new Item("Wheat", 1));
-        FarmScript farm = m_baseAi.m_work.GetComponent<FarmScript>();
+        m_baseAi.getItems().Add(new Item("Wheat", 1));
+        m_baseAi.getItems().Add(new Item("Wheat", 1));
+        FarmScript farm = m_baseAi.getWork().GetComponent<FarmScript>();
         if (farm)
         {
-            farm.m_requested = false;
+            farm.setRequested(false);
         }
-        m_baseAi.m_toDoGoals.Add(new StoreItem(m_baseAi.m_Items[m_baseAi.m_Items.Count - 1], m_baseAi));
-        m_baseAi.m_toDoGoals.Add(new StoreItem(m_baseAi.m_Items[m_baseAi.m_Items.Count - 2], m_baseAi));
+        m_baseAi.getToDoGoals().Add(new StoreItem(m_baseAi.getItems()[m_baseAi.getItems().Count - 1], m_baseAi));
+        m_baseAi.getToDoGoals().Add(new StoreItem(m_baseAi.getItems()[m_baseAi.getItems().Count - 2], m_baseAi));
         return true;
     }
 }

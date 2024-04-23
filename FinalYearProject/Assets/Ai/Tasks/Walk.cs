@@ -29,7 +29,7 @@ public class Walk : Task
     public override void StartExecution()
     {
         m_executionStarted = true;
-        if(!m_baseAi.m_visible)
+        if(!m_baseAi.getVisible())
         {
             m_baseAi.ToggleMesh();
         }

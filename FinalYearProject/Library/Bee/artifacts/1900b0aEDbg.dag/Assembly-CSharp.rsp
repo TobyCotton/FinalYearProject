@@ -373,7 +373,6 @@
 "Assets/Ai/Tasks/CreateFood.cs"
 "Assets/Ai/Tasks/CreateHandle.cs"
 "Assets/Ai/Tasks/CreateHoe.cs"
-"Assets/Ai/Tasks/CreateHorseshoe.cs"
 "Assets/Ai/Tasks/CreatePickaxe.cs"
 "Assets/Ai/Tasks/GetAxe.cs"
 "Assets/Ai/Tasks/GetFood.cs"

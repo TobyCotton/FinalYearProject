@@ -50,7 +50,7 @@ public class GetHandle : Task
         {
             if (m_wittler.m_Handles > 0)
             {
-                m_baseAi.m_Items.Add(new Item("Handle", 1));
+                m_baseAi.getItems().Add(new Item("Handle", 1));
                 m_wittler.m_Handles--;
             }
             else

@@ -12,17 +12,28 @@ public class BaseAi : MonoBehaviour
 {
     protected List<Task> m_availableActions = new List<Task>();
     protected List<Task> m_goals = new List<Task>();
-    public List<Task> m_toDoGoals = new List<Task>();
-    public NavMeshAgent m_agent;
-    public Building m_work;
-    public List<Task> m_tasks = new List<Task>();
+    protected List<Task> m_toDoGoals = new List<Task>();
+    protected NavMeshAgent m_agent;
+    protected Building m_work;
+    protected List<Task> m_tasks = new List<Task>();
     protected List<List<Task>> m_taskListOptions = new List<List<Task>>();
-    public List<Item> m_Items = new List<Item>();
+    protected List<Item> m_Items = new List<Item>();
     protected Vector3 m_homePosition = Vector3.zero;
-    public float m_hunger;
+    protected float m_hunger;
     private bool m_skip = false;
-    public bool m_visible = true;
-    public bool m_multipleIdle = false;
+    protected bool m_visible = true;
+    protected bool m_multipleIdle = false;
+
+    public bool getMultipleIdle() { return m_multipleIdle; }
+
+    public bool getVisible() { return m_visible; }
+    public void setHunger(float newV) { m_hunger = newV; }
+    public List<Item> getItems() { return m_Items; }
+    public List<Task> getTasks() { return m_tasks; }
+    public Building getWork() { return m_work; }
+    public void setWork(Building x) { m_work = x; }
+    public NavMeshAgent getNavAgent() { return m_agent; }
+    public List<Task> getToDoGoals() { return m_toDoGoals; }
     public BaseAi()
     {
         m_availableActions.Add(new Walk());
@@ -77,12 +88,12 @@ public class BaseAi : MonoBehaviour
                             a.getDestination();
                             Task b = new BuyFood(this);
                             b.getDestination();
-                            if (WeightChecker(a,b) && !a.m_failed)
+                            if (WeightChecker(a,b) && !a.getFailed())
                             {
                                 m_tasks.Add(new GetFood(m_agent, this));
                                 m_skip = true;
                             }
-                            else if(!b.m_failed)
+                            else if(!b.getFailed())
                             {
                                 m_tasks.Add(new BuyFood(this));
                                 m_skip = true;
@@ -94,11 +105,11 @@ public class BaseAi : MonoBehaviour
                             a.getDestination();
                             Task b = new BuyFood(this);
                             b.getDestination();
-                            if (WeightChecker(a, b) && !a.m_failed)
+                            if (WeightChecker(a, b) && !a.getFailed())
                             {
                                 m_toDoGoals.Add(new GetFood(m_agent, this));
                             }
-                            else if (!b.m_failed)
+                            else if (!b.getFailed())
                             {
                                 m_toDoGoals.Add(new BuyFood(this));
                             }
@@ -112,12 +123,12 @@ public class BaseAi : MonoBehaviour
                 a.getDestination();
                 Task b = new BuyFood(this);
                 b.getDestination();
-                if (WeightChecker(a, b) && !a.m_failed)
+                if (WeightChecker(a, b) && !a.getFailed())
                 {
                     m_tasks.Add(new GetFood(m_agent, this));
                     m_skip = true;
                 }
-                else if (!b.m_failed)
+                else if (!b.getFailed())
                 {
                     m_tasks.Add(new BuyFood(this));
                     m_skip = true;
@@ -139,7 +150,7 @@ public class BaseAi : MonoBehaviour
                 }
                 else
                 {
-                    if(stored.m_priority < m_toDoGoals[i].m_priority)
+                    if(stored.getPriority() < m_toDoGoals[i].getPriority())
                     {
                         stored = m_toDoGoals[i];
                     }
@@ -153,8 +164,8 @@ public class BaseAi : MonoBehaviour
             }
             if (!m_skip)//Don't skip task
             {
-                m_tasks[m_tasks.Count-1].m_time -= Time.deltaTime;
-                if (m_tasks[m_tasks.Count - 1].m_time <= 0.0f && m_tasks[taskLength - 1].Executing())
+                m_tasks[m_tasks.Count-1].setTime(m_tasks[m_tasks.Count - 1].getTime() - Time.deltaTime);
+                if (m_tasks[m_tasks.Count - 1].getTime() <= 0.0f && m_tasks[taskLength - 1].Executing())
                 {
                     if (m_tasks[taskLength - 1] is Idle)
                     {
@@ -173,10 +184,10 @@ public class BaseAi : MonoBehaviour
                 }
                 else
                 {
-                    if(m_tasks[taskLength - 1].m_failed)
+                    if(m_tasks[taskLength - 1].getFailed())
                     {
                         m_tasks[0].TaskFailed();
-                        m_tasks[0].m_executionStarted = false;
+                        m_tasks[0].setWeight(false);
                         m_toDoGoals.Add(m_tasks[0]);
                         m_tasks.Clear();
                     }
@@ -193,14 +204,14 @@ public class BaseAi : MonoBehaviour
                 {
                     if (stored != null)
                     {
-                        if (stored.m_priority < m_toDoGoals[i].m_priority)
+                        if (stored.getPriority() < m_toDoGoals[i].getPriority())
                         {
                             stored = m_toDoGoals[i];
                         }
                     }
                     else
                     {
-                        if (m_toDoGoals[i].m_cooldownPeriod <= 0)
+                        if (m_toDoGoals[i].getCooldown() <= 0)
                         {
                             stored = m_toDoGoals[i];
                         }
@@ -231,11 +242,11 @@ public class BaseAi : MonoBehaviour
             float currentWeight = 0;
             for(int j = 0;j < m_taskListOptions[i].Count;j++)
             {
-                if (m_taskListOptions[i][j].m_failed)
+                if (m_taskListOptions[i][j].getFailed())
                 {
                     failedTask = true;
                 }
-                currentWeight += m_taskListOptions[i][j].m_Weight;
+                currentWeight += m_taskListOptions[i][j].getWeight();
             }
             if (currentWeight < lowestWeight && !failedTask) 
             {
@@ -270,7 +281,7 @@ public class BaseAi : MonoBehaviour
     }
     public bool PriorityChecker(Task a)//check if priority is greater than current task
     {
-        if(a.m_cooldownPeriod > 0)
+        if(a.getCooldown() > 0)
         {
             return false;
         }
@@ -278,12 +289,12 @@ public class BaseAi : MonoBehaviour
         {
             return true;
         }
-        if(a.m_priority > m_tasks[0].m_priority)
+        if(a.getPriority() > m_tasks[0].getPriority())
         {
             if (m_tasks[0] is Idle) { m_multipleIdle = false; }
             else
             {
-                m_tasks[0].m_executionStarted = false;
+                m_tasks[0].setWeight(false);
                 m_toDoGoals.Add(m_tasks[0]);
             }
             m_tasks.Clear();
@@ -294,7 +305,7 @@ public class BaseAi : MonoBehaviour
 
     protected bool CheckPrerequisite(Task goal, int listIncrement)
     {
-        if (goal.m_PreRequisite.Count == 0)
+        if (goal.getPrerequisite().Count == 0)
         {
             if (m_taskListOptions.Count == 0)
             {
@@ -310,7 +321,7 @@ public class BaseAi : MonoBehaviour
     {
         for (int z = 0; z < m_Items.Count; z++)
         {
-            if (goal.m_PreRequisite[prerequisiteNumber] == m_Items[z].m_name)
+            if (goal.getPrerequisite()[prerequisiteNumber] == m_Items[z].m_name)
             {
                 return true;
             }
@@ -344,15 +355,15 @@ public class BaseAi : MonoBehaviour
     }
     public void CantComplete()
     {
-        m_tasks[0].m_executionStarted = false;
-        m_tasks[0].m_priority--;
+        m_tasks[0].setWeight(false);
+        m_tasks[0].setWeight(m_tasks[0].getWeight()-1);
         m_toDoGoals.Add(m_tasks[0]);
         m_tasks.Clear();
     }
 
     public bool WeightChecker(Task goalA, Task goalB)
     {
-        if(goalA.m_Weight <= goalB.m_Weight)
+        if(goalA.getWeight() <= goalB.getWeight())
         {
             return true;
         }

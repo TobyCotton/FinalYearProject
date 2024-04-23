@@ -52,7 +52,7 @@ public class GetPickaxe : Task
         {
             if (m_blacksmith.m_Pickaxes > 0)
             {
-                m_baseAi.m_Items.Add(new Item("Pickaxe", 3));
+                m_baseAi.getItems().Add(new Item("Pickaxe", 3));
                 m_blacksmith.m_Pickaxes--;
             }
             else

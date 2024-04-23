@@ -5,10 +5,11 @@ using UnityEngine;
 public class MineScript : Building
 {
     public float m_Timer;
-    public bool m_requested = false;
+    private bool m_requested = false;
     public float m_TimerReset;
     AdventurerAI m_adventurer = null;
 
+    public void setRequested(bool newB) { m_requested = newB; }
     public MineScript(float timer) 
     {
         m_TimerReset = timer;
@@ -36,7 +37,7 @@ public class MineScript : Building
                 }
                 else
                 {
-                    m_adventurer.m_toDoGoals.Add(new HarvestOre(m_adventurer,this, transform.position));
+                    m_adventurer.getToDoGoals().Add(new HarvestOre(m_adventurer,this, transform.position));
                 }
                 m_requested = true;
             }
@@ -48,9 +49,9 @@ public class MineScript : Building
 
         for (int i = 0; i < adventurers.Length; i++)
         {
-            if (adventurers[i].m_work == null)
+            if (adventurers[i].getWork() == null)
             {
-                adventurers[i].m_work = this;
+                adventurers[i].setWork(this);
                 m_adventurer = adventurers[i];
                 return;
             }

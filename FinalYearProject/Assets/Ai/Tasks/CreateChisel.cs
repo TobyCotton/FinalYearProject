@@ -31,12 +31,12 @@ public class CreateChisel : Task
     }
     public override Vector3 getDestination()
     {
-        if (m_baseAi.m_work)
+        if (m_baseAi.getWork())
         {
-            m_destination = m_baseAi.m_work.transform.position;
+            m_destination = m_baseAi.getWork().transform.position;
             if(!m_BlacksmithScript)
             {
-                m_BlacksmithScript = m_baseAi.m_work.GetComponent<BlacksmithScript>();
+                m_BlacksmithScript = m_baseAi.getWork().GetComponent<BlacksmithScript>();
             }
             return m_destination;
         }
@@ -45,10 +45,10 @@ public class CreateChisel : Task
     public override bool Executing()
     {
         m_BlacksmithScript.m_Chisels++;
-        m_BlacksmithScript.m_chiselRequested = false;
+        m_BlacksmithScript.setChiselRequested(false);
         Item toRemove = null;
         Item toRemove2 = null;
-        foreach (Item item in m_baseAi.m_Items)
+        foreach (Item item in m_baseAi.getItems())
         {
             if (toRemove == null && item.m_name == "Ore")
             {
@@ -59,8 +59,8 @@ public class CreateChisel : Task
                 toRemove2 = item;
             }
         }
-        m_baseAi.m_Items.Remove(toRemove);
-        m_baseAi.m_Items.Remove(toRemove2);
+        m_baseAi.getItems().Remove(toRemove);
+        m_baseAi.getItems().Remove(toRemove2);
         return true;
     }
 }

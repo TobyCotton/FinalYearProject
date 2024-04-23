@@ -59,14 +59,14 @@ public class GetFood : Task
         {
             if (m_bakery.m_foodCount > 0)
             {
-                m_baseAi.m_hunger = 0;
+                m_baseAi.setHunger(0.0f);
                 m_bakery.m_foodCount--;
                 return true;
             }
             else
             {
-                m_baseAi.m_tasks.Add(new BuyFood(m_baseAi));
-                m_baseAi.m_tasks.RemoveAt(0);
+                m_baseAi.getTasks().Add(new BuyFood(m_baseAi));
+                m_baseAi.getTasks().RemoveAt(0);
             }
         }
         return false;

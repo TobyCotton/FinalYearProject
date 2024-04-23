@@ -31,13 +31,13 @@ public class GetOre : Task
     {
         StoreRoomScript[] storeRooms = Object.FindObjectsOfType<StoreRoomScript>();
         float shortestDistance = Mathf.Infinity;
-        Vector3 currentPosition = m_baseAi.m_agent.transform.position;
+        Vector3 currentPosition = m_baseAi.getNavAgent().transform.position;
         m_destination = Vector3.zero;
         bool hasItem = false;
         for (int i = 0; i < storeRooms.Length; i++)
         {
             hasItem = false;
-            foreach (Item items in storeRooms[i].m_Stored)
+            foreach (Item items in storeRooms[i].getStored())
             {
                 if (items.m_name == "Ore")
                 {
@@ -60,12 +60,12 @@ public class GetOre : Task
     }
     public override bool Executing()
     {
-        foreach (Item item in m_storeRoom.m_Stored)
+        foreach (Item item in m_storeRoom.getStored())
         {
             if (item.m_name == "Ore")
             {
-                m_baseAi.m_Items.Add(item);
-                m_storeRoom.m_Stored.Remove(item);
+                m_baseAi.getItems().Add(item);
+                m_storeRoom.getStored().Remove(item);
                 m_storeRoom.m_OreStored--;
                 return true;
             }

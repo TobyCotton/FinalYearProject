@@ -5,7 +5,7 @@ using UnityEngine;
 public class HarvestWood : Task
 {
     private Vector3 m_destination;
-    ForestScript m_woods;
+    private ForestScript m_woods;
     public HarvestWood(BaseAi ai, ForestScript woods, Vector3 location)
     {
         m_Weight = 1.0f;
@@ -35,26 +35,26 @@ public class HarvestWood : Task
     public override bool Executing()
     {
         Item toRemove = null;
-        for (int i = 0; i < m_baseAi.m_Items.Count; i++)
+        for (int i = 0; i < m_baseAi.getItems().Count; i++)
         {
-            if (m_baseAi.m_Items[i].m_name == "Axe")
+            if (m_baseAi.getItems()[i].m_name == "Axe")
             {
-                if (!m_baseAi.m_Items[i].ReduceDurability())
+                if (!m_baseAi.getItems()[i].ReduceDurability())
                 {
-                    toRemove = m_baseAi.m_Items[i];
+                    toRemove = m_baseAi.getItems()[i];
                 }
             }
         }
         if (toRemove != null)
         {
-            m_baseAi.m_Items.Remove(toRemove);
+            m_baseAi.getItems().Remove(toRemove);
         }
-        m_baseAi.m_Items.Add(new Item("Wood", 1));
-        m_baseAi.m_Items.Add(new Item("Wood", 1));
-        m_woods.m_requested = false;
-        m_baseAi.m_toDoGoals.Add(new StoreItem(m_baseAi.m_Items[m_baseAi.m_Items.Count - 1], m_baseAi));
-        m_baseAi.m_toDoGoals.Add(new StoreItem(m_baseAi.m_Items[m_baseAi.m_Items.Count - 2], m_baseAi));
-        m_baseAi.m_work = null;
+        m_baseAi.getItems().Add(new Item("Wood", 1));
+        m_baseAi.getItems().Add(new Item("Wood", 1));
+        m_woods.setRequested(false);
+        m_baseAi.getToDoGoals().Add(new StoreItem(m_baseAi.getItems()[m_baseAi.getItems().Count - 1], m_baseAi));
+        m_baseAi.getToDoGoals().Add(new StoreItem(m_baseAi.getItems()[m_baseAi.getItems().Count - 2], m_baseAi));
+        m_baseAi.setWork(null);
         return true;
     }
 }

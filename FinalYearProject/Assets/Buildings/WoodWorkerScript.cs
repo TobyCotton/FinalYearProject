@@ -6,7 +6,9 @@ public class WoodWorkerScript : Building
 {
     public int m_Handles;
     WittlerAI m_Wittler = null;
-    public bool m_handlesRequested = false;
+    private bool m_handlesRequested = false;
+
+    public void setHandleRequested(bool newB) { m_handlesRequested = newB; }
 
     public WoodWorkerScript()
     {
@@ -30,7 +32,7 @@ public class WoodWorkerScript : Building
                 }
                 else
                 {
-                    m_Wittler.m_toDoGoals.Add(new CreateHandle(m_Wittler));
+                    m_Wittler.getToDoGoals().Add(new CreateHandle(m_Wittler));
                 }
                 m_handlesRequested = true;
             }
@@ -43,9 +45,9 @@ public class WoodWorkerScript : Building
 
         for (int i = 0; i < wittlers.Length; i++)
         {
-            if (!wittlers[i].m_work)
+            if (!wittlers[i].getWork())
             {
-                wittlers[i].m_work = this;
+                wittlers[i].setWork(this);
                 m_Wittler = wittlers[i];
                 return;
             }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.PackageManager.Requests;
 using UnityEditor.Search;
 using UnityEngine;
 
@@ -31,23 +32,23 @@ public class CreateFood : Task
     }
     public override Vector3 getDestination()
     {
-        if (m_baseAi.m_work)
+        if (m_baseAi.getWork())
         {
             if (!m_BakeryScript)
             {
-                m_BakeryScript = m_baseAi.m_work.GetComponent<BakeryScript>();
+                m_BakeryScript = m_baseAi.getWork().GetComponent<BakeryScript>();
             }
-            m_destination = m_baseAi.m_work.transform.position;
+            m_destination = m_baseAi.getWork().transform.position;
             return m_destination;
         }
         return Vector3.zero;
     }
     public override bool Executing()
     {
-        m_BakeryScript.m_requested = false;
+        m_BakeryScript.setRequested(false);
         m_BakeryScript.m_foodCount++;
         Item toRemove = null;
-        foreach(Item item in m_baseAi.m_Items)
+        foreach(Item item in m_baseAi.getItems())
         {
             if(item.m_name == "Wheat")
             {
@@ -56,7 +57,7 @@ public class CreateFood : Task
         }
         if(toRemove != null)
         {
-            m_baseAi.m_Items.Remove(toRemove);
+            m_baseAi.getItems().Remove(toRemove);
         }
         return true;
     }

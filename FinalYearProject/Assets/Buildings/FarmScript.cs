@@ -5,10 +5,11 @@ using UnityEngine;
 public class FarmScript : Building
 {
     public float m_Timer;
-    public bool m_requested = false;
+    private bool m_requested = false;
     public float m_TimerReset;
-    FarmerAi m_farmer= null;
+    private FarmerAi m_farmer= null;
 
+    public void setRequested(bool newB) { m_requested = newB; }
     public FarmScript(int timer)
     {
         m_TimerReset = timer;
@@ -37,7 +38,7 @@ public class FarmScript : Building
                 }
                 else
                 {
-                    m_farmer.m_toDoGoals.Add(new HarvestWheat(m_farmer));
+                    m_farmer.getToDoGoals().Add(new HarvestWheat(m_farmer));
                 }
                 m_requested = true;
             }
@@ -49,9 +50,9 @@ public class FarmScript : Building
 
         for (int i = 0; i < farmers.Length; i++)
         {
-            if (!farmers[i].m_work)
+            if (!farmers[i].getWork())
             {
-                farmers[i].m_work = this;
+                farmers[i].setWork(this);
                 m_farmer = farmers[i];
                 return;
             }

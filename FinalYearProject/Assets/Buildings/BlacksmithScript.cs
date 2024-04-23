@@ -6,22 +6,23 @@ using UnityEngine;
 public class BlacksmithScript : Building
 {
     public int m_Hoes;
-    public int m_Horshoes;
     public int m_Chisels;
     public int m_Pickaxes;
     public int m_Axes;
-    SmithyAI m_Smithy = null;
-    public bool m_pickaxeRequested = false;
-    public bool m_hoeRequested = false;
-    public bool m_horseshoeRequested = false;
-    public bool m_chiselRequested = false;
-    public bool m_axesRequested = false;
+    private SmithyAI m_Smithy = null;
+    private bool m_pickaxeRequested = false;
+    private bool m_hoeRequested = false;
+    private bool m_chiselRequested = false;
+    private bool m_axesRequested = false;
 
+    public void setPickaxeRequested(bool newB) { m_pickaxeRequested = newB; }
+    public void setHoeRequested(bool newB) { m_hoeRequested = newB; }
+    public void setChiselRequested(bool newB) { m_chiselRequested = newB; }
+    public void setAxeRequested(bool newB) { m_axesRequested = newB; }
     public BlacksmithScript()
     {
         m_Pickaxes = 3;
         m_Hoes = 3;
-        m_Horshoes = 4;
         m_Chisels = 3;
         m_Axes = 3;
     }
@@ -43,22 +44,9 @@ public class BlacksmithScript : Building
                 }
                 else
                 {
-                    m_Smithy.m_toDoGoals.Add(new CreateHoe(m_Smithy));
+                    m_Smithy.getToDoGoals().Add(new CreateHoe(m_Smithy));
                 }
                 m_hoeRequested= true;
-            }
-            if (m_Horshoes < 4 && !m_horseshoeRequested)
-            {
-                if (m_Smithy.PriorityChecker(new CreateHorseshoe()))
-                {
-                    m_Smithy.AddToTaskList(new CreateHorseshoe(m_Smithy), 0);
-                    m_Smithy.SetTaskList();
-                }
-                else
-                {
-                    m_Smithy.m_toDoGoals.Add(new CreateHorseshoe(m_Smithy));
-                }
-                m_horseshoeRequested= true;
             }
             if (m_Chisels < 3 && !m_chiselRequested)
             {
@@ -69,7 +57,7 @@ public class BlacksmithScript : Building
                 }
                 else
                 {
-                    m_Smithy.m_toDoGoals.Add(new CreateChisel(m_Smithy));
+                    m_Smithy.getToDoGoals().Add(new CreateChisel(m_Smithy));
                 }
                 m_chiselRequested= true;
             }
@@ -82,7 +70,7 @@ public class BlacksmithScript : Building
                 }
                 else
                 {
-                    m_Smithy.m_toDoGoals.Add(new CreatePickaxe(m_Smithy));
+                    m_Smithy.getToDoGoals().Add(new CreatePickaxe(m_Smithy));
                 }
                 m_pickaxeRequested = true;
             }
@@ -95,7 +83,7 @@ public class BlacksmithScript : Building
                 }
                 else
                 {
-                    m_Smithy.m_toDoGoals.Add(new CreateAxe(m_Smithy));
+                    m_Smithy.getToDoGoals().Add(new CreateAxe(m_Smithy));
                 }
                 m_axesRequested = true;
             }
@@ -108,9 +96,9 @@ public class BlacksmithScript : Building
 
         for (int i = 0; i < smithy.Length; i++)
         {
-            if (!smithy[i].m_work)
+            if (!smithy[i].getWork())
             {
-                smithy[i].m_work = this;
+                smithy[i].setWork(this);
                 m_Smithy = smithy[i];
                 return;
             }

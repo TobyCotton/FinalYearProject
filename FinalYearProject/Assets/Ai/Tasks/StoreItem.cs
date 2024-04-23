@@ -5,8 +5,8 @@ using UnityEngine;
 public class StoreItem : Task
 {
     private Vector3 m_destination;
-    StoreRoomScript m_storeRoom;
-    Item m_itemToStore;
+    private StoreRoomScript m_storeRoom;
+    private Item m_itemToStore;
 
     public StoreItem(Item item, BaseAi ai)
     {
@@ -31,7 +31,7 @@ public class StoreItem : Task
     {
         StoreRoomScript[] storeRooms = Object.FindObjectsOfType<StoreRoomScript>();
         float shortestDistance = Mathf.Infinity;
-        Vector3 currentPosition = m_baseAi.m_agent.transform.position;
+        Vector3 currentPosition = m_baseAi.getNavAgent().transform.position;
         for (int i = 0; i < storeRooms.Length; i++)
         {
             float distance = Vector3.Distance(currentPosition, storeRooms[i].transform.position);
@@ -49,7 +49,7 @@ public class StoreItem : Task
     {
         if(m_storeRoom)
         {
-            m_storeRoom.m_Stored.Add(m_itemToStore);
+            m_storeRoom.getStored().Add(m_itemToStore);
             if(m_itemToStore.m_name == "Ore")
             {
                 m_storeRoom.m_OreStored++;
@@ -62,7 +62,7 @@ public class StoreItem : Task
             {
                 m_storeRoom.m_WheatStored++;
             }
-            m_baseAi.m_Items.Remove(m_itemToStore);
+            m_baseAi.getItems().Remove(m_itemToStore);
         }
         else
         {

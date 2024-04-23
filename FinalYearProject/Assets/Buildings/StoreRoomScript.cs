@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class StoreRoomScript : Building
 {
-    public List<Item> m_Stored;
+    private List<Item> m_Stored;
     public int m_WheatStored;
     public int m_WoodStored;
     public int m_OreStored;
     MerchantAI m_merchant;
-    public bool m_requested = false;
+    private bool m_requested = false;
+
+    public List<Item> getStored() { return m_Stored; }
+    public void setRequested(bool newB) { m_requested = newB; }
 
     public StoreRoomScript()
     {
@@ -34,7 +37,7 @@ public class StoreRoomScript : Building
                 }
                 else
                 {
-                    m_merchant.m_toDoGoals.Add(new Sell("Wheat", m_merchant, this));
+                    m_merchant.getToDoGoals().Add(new Sell("Wheat", m_merchant, this));
                 }
             }
             if (m_WoodStored > 4)
@@ -47,7 +50,7 @@ public class StoreRoomScript : Building
                 }
                 else
                 {
-                    m_merchant.m_toDoGoals.Add(new Sell("Wood", m_merchant, this));
+                    m_merchant.getToDoGoals().Add(new Sell("Wood", m_merchant, this));
                 }
             }
             if (m_OreStored > 4)
@@ -60,7 +63,7 @@ public class StoreRoomScript : Building
                 }
                 else
                 {
-                    m_merchant.m_toDoGoals.Add(new Sell("Ore", m_merchant, this));
+                    m_merchant.getToDoGoals().Add(new Sell("Ore", m_merchant, this));
                 }
             }
         }
@@ -69,11 +72,12 @@ public class StoreRoomScript : Building
     private void FindMerchant()
     {
         MerchantAI[] merchants = Object.FindObjectsOfType<MerchantAI>();
-
+#pragma warning disable
         for (int i = 0; i < merchants.Length; i++)
         {
             m_merchant = merchants[i];
             return;
         }
+#pragma warning restore
     }
 }

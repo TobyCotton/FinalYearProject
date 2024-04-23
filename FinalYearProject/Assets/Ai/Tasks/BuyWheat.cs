@@ -31,7 +31,7 @@ public class BuyWheat : Task
     {
         MarketScript[] markets = Object.FindObjectsOfType<MarketScript>();
         float shortestDistance = Mathf.Infinity;
-        Vector3 currentPosition = m_baseAi.m_agent.transform.position;
+        Vector3 currentPosition = m_baseAi.getNavAgent().transform.position;
         m_destination = Vector3.zero;
         for (int i = 0; i < markets.Length; i++)
         {
@@ -61,7 +61,7 @@ public class BuyWheat : Task
     public override bool Executing()
     {
         m_market.m_money -= 2;
-        m_baseAi.m_Items.Add(new Item("Wheat", 1));
+        m_baseAi.getItems().Add(new Item("Wheat", 1));
         return true;
     }
 }

@@ -31,7 +31,7 @@ public class Idle : Task//Currently the same as walk will edit once designated i
     public override void StartExecution()
     {
         m_executionStarted = true;
-        if (!m_baseAi.m_visible && !m_baseAi.m_multipleIdle)
+        if (!m_baseAi.getVisible() && !m_baseAi.getMultipleIdle())
         {
             m_baseAi.ToggleMesh();
         }

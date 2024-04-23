@@ -7,7 +7,9 @@ public class BakeryScript : Building
     public int m_foodCount;
     private int m_IdealFoodCount;
     private BakerAI m_Baker;
-    public bool m_requested = false;
+    private bool m_requested = false;
+
+    public void setRequested(bool requested) { m_requested = requested; }
     public BakeryScript()
     {
         m_IdealFoodCount = 9;
@@ -39,7 +41,7 @@ public class BakeryScript : Building
                 }
                 else
                 {
-                    m_Baker.m_toDoGoals.Add(new CreateFood(m_Baker));
+                    m_Baker.getToDoGoals().Add(new CreateFood(m_Baker));
                 }
                 m_requested = true;
             }
@@ -51,9 +53,9 @@ public class BakeryScript : Building
 
         for (int i = 0; i < baker.Length; i++)
         {
-            if (!baker[i].m_work)
+            if (!baker[i].getWork())
             {
-                baker[i].m_work = this;
+                baker[i].setWork(this);
                 m_Baker = baker[i];
                 return;
             }
