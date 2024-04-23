@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class SmithyAI : BaseAi
 {
-    private TMP_Text m_task;
-    private TMP_Text m_Goal;
-    private TMP_Text m_job;
+    public TMP_Text m_task;
+    public TMP_Text m_Goal;
+    public TMP_Text m_job;
     public SmithyAI()
     {
         m_goals.Add(new CreateHoe());

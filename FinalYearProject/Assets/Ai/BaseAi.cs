@@ -13,7 +13,7 @@ public class BaseAi : MonoBehaviour
     protected List<Task> m_availableActions = new List<Task>();
     protected List<Task> m_goals = new List<Task>();
     protected List<Task> m_toDoGoals = new List<Task>();
-    protected NavMeshAgent m_agent;
+    public NavMeshAgent m_agent;
     protected Building m_work;
     protected List<Task> m_tasks = new List<Task>();
     protected List<List<Task>> m_taskListOptions = new List<List<Task>>();

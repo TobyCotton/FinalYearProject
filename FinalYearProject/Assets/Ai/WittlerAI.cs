@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class WittlerAI : BaseAi
 {
-    private TMP_Text m_task;
-    private TMP_Text m_Goal;
-    private TMP_Text m_job;
+    public TMP_Text m_task;
+    public TMP_Text m_Goal;
+    public TMP_Text m_job;
     public WittlerAI()
     {
         m_goals.Add(new CreateHandle());

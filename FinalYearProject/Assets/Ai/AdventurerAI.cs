@@ -6,9 +6,9 @@ using TMPro;
 
 public class AdventurerAI : BaseAi
 {
-    private TMP_Text m_task;
-    private TMP_Text m_Goal;
-    private TMP_Text m_job;
+    public TMP_Text m_task;
+    public TMP_Text m_Goal;
+    public TMP_Text m_job;
     public AdventurerAI()
     {
         m_goals.Add(new HarvestOre());
