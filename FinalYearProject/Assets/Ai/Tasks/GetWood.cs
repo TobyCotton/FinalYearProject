@@ -50,7 +50,6 @@ public class GetWood : Task
                 m_storeRoom = storeRooms[i];
                 shortestDistance = distance;
                 m_destination = storeRooms[i].transform.position;
-                m_storeRoom.m_WoodStored--;
             }
         }
         if (m_destination == Vector3.zero)
@@ -67,6 +66,7 @@ public class GetWood : Task
             {
                 m_baseAi.getItems().Add(item);
                 m_storeRoom.getStored().Remove(item);
+                m_storeRoom.m_WoodStored--;
                 return true;
             }
         }

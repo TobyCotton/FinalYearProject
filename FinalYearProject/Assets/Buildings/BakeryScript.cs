@@ -27,7 +27,7 @@ public class BakeryScript : Building
         }
         if(m_Baker)
         {
-            if((m_foodCount < m_IdealFoodCount && !m_requested) || m_foodCount == 0)//only ask for food task when needed and not already requested
+            if((m_foodCount < m_IdealFoodCount && !m_requested))//only ask for food task when needed and not already requested
             {
                 float priority = 2.0f;
                 if(m_foodCount == 0)//Huge priority

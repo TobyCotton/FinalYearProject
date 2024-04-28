@@ -60,6 +60,11 @@ public class BuyWheat : Task
     }
     public override bool Executing()
     {
+        if (m_market.m_money <= 1)
+        {
+            TaskFailed();
+            return false;
+        }
         m_market.m_money -= 2;
         m_baseAi.getItems().Add(new Item("Wheat", 1));
         return true;

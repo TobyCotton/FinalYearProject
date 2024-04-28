@@ -59,6 +59,16 @@ public class CreateChisel : Task
                 toRemove2 = item;
             }
         }
+        if (toRemove == null)
+        {
+            TaskFailed();
+            return false;
+        }
+        if (toRemove2 == null)
+        {
+            TaskFailed();
+            return false;
+        }
         m_baseAi.getItems().Remove(toRemove);
         m_baseAi.getItems().Remove(toRemove2);
         return true;

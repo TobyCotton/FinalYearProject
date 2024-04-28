@@ -55,6 +55,11 @@ public class CreateHoe : Task
                 toRemove = item;
             }
         }
+        if (toRemove == null)
+        {
+            TaskFailed();
+            return false;
+        }
         m_baseAi.getItems().Remove(toRemove);
         foreach (Item item in m_baseAi.getItems())
         {
@@ -62,6 +67,11 @@ public class CreateHoe : Task
             {
                 toRemove2 = item;
             }
+        }
+        if (toRemove2 == null)
+        {
+            TaskFailed();
+            return false;
         }
         m_baseAi.getItems().Remove(toRemove2);
         return true;

@@ -45,8 +45,6 @@ public class CreateFood : Task
     }
     public override bool Executing()
     {
-        m_BakeryScript.setRequested(false);
-        m_BakeryScript.m_foodCount++;
         Item toRemove = null;
         foreach(Item item in m_baseAi.getItems())
         {
@@ -58,7 +56,14 @@ public class CreateFood : Task
         if(toRemove != null)
         {
             m_baseAi.getItems().Remove(toRemove);
+            m_BakeryScript.setRequested(false);
+            m_BakeryScript.m_foodCount++;
+            return true;
         }
-        return true;
+        else
+        {
+            TaskFailed();
+            return false;
+        }
     }
 }

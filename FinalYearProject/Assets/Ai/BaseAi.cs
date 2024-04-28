@@ -117,23 +117,23 @@ public class BaseAi : MonoBehaviour
                     }
                 }
             }
-            else
-            {
-                Task a = new GetFood(m_agent, this);
-                a.getDestination();
-                Task b = new BuyFood(this);
-                b.getDestination();
-                if (WeightChecker(a, b) && !a.getFailed())
-                {
-                    m_tasks.Add(new GetFood(m_agent, this));
-                    m_skip = true;
-                }
-                else if (!b.getFailed())
-                {
-                    m_tasks.Add(new BuyFood(this));
-                    m_skip = true;
-                }
-            }
+            //else
+            //{
+            //    Task a = new GetFood(m_agent, this);
+            //    a.getDestination();
+            //    Task b = new BuyFood(this);
+            //    b.getDestination();
+            //    if (WeightChecker(a, b) && !a.getFailed())
+            //    {
+            //        m_tasks.Add(new GetFood(m_agent, this));
+            //        m_skip = true;
+            //    }
+            //    else if (!b.getFailed())
+            //    {
+            //        m_tasks.Add(new BuyFood(this));
+            //        m_skip = true;
+            //    }
+            //}
         }
         int taskLength = m_tasks.Count;
         if (taskLength != 0)//There is a task to execute

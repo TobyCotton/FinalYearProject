@@ -52,6 +52,11 @@ public class Sell : Task
             }
 
         }
+        else
+        {
+            TaskFailed();
+            return false;
+        }
         m_storeRoom.setRequested(false);
         return true;
     }

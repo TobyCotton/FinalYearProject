@@ -50,7 +50,6 @@ public class GetWheat : Task
                 m_storeRoom = storeRooms[i];
                 shortestDistance = distance;
                 m_destination = storeRooms[i].transform.position;
-                m_storeRoom.m_WheatStored--;
             }
         }
         if (m_destination == Vector3.zero)
@@ -65,6 +64,7 @@ public class GetWheat : Task
         {
             if (item.m_name == "Wheat")
             {
+                m_storeRoom.m_WheatStored--;
                 m_baseAi.getItems().Add(item);
                 m_storeRoom.getStored().Remove(item);
                 return true;

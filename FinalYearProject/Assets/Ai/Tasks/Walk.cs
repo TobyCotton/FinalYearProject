@@ -53,6 +53,11 @@ public class Walk : Task
             {
                 m_agent.SetDestination(m_destination);
             }
+            else
+            {
+                TaskFailed();
+                return false;
+            }
         }
         return false;
     }

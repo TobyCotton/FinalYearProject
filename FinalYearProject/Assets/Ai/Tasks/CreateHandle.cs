@@ -52,6 +52,11 @@ public class CreateHandle : Task
                 toRemove = item;
             }
         }
+        if (toRemove == null)
+        {
+            TaskFailed();
+            return false;
+        }
         m_baseAi.getItems().Remove(toRemove);
         return true;
     }

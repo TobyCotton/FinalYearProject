@@ -65,8 +65,24 @@ public class GetFood : Task
             }
             else
             {
-                m_baseAi.getTasks().Add(new BuyFood(m_baseAi));
-                m_baseAi.getTasks().RemoveAt(0);
+                bool exists = false;
+                foreach(Task task in m_baseAi.getToDoGoals())
+                {
+                    if(task is BuyFood)
+                    {
+                        exists = true;
+                    }
+                }
+                if(!exists)
+                {
+                    m_baseAi.getTasks().Add(new BuyFood(m_baseAi));
+                    m_baseAi.getTasks().RemoveAt(0);
+                }
+                else
+                {
+                    TaskFailed();
+                    return false;
+                }
             }
         }
         return false;

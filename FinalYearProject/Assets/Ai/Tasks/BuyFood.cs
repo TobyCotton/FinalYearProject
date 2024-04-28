@@ -63,8 +63,13 @@ public class BuyFood : Task
     }
     public override bool Executing()
     {
+        if(m_market.m_money <= 0)
+        {
+            TaskFailed();
+            return false;
+        }
         m_market.m_money -= 1;
-        m_baseAi.getItems().Add(new Item("Food", 1));
+        m_baseAi.setHunger(0.0f);
         return true;
     }
 }
