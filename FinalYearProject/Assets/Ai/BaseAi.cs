@@ -202,16 +202,16 @@ public class BaseAi : MonoBehaviour
                 Task stored = null;
                 for (int i = 0; i < m_toDoGoals.Count; i++)
                 {
-                    if (stored != null)
+                    if (m_toDoGoals[i].getCooldown() <= 0)
                     {
-                        if (stored.getPriority() < m_toDoGoals[i].getPriority())
+                        if (stored != null)
                         {
-                            stored = m_toDoGoals[i];
+                            if (stored.getPriority() < m_toDoGoals[i].getPriority())
+                            {
+                                stored = m_toDoGoals[i];
+                            }
                         }
-                    }
-                    else
-                    {
-                        if (m_toDoGoals[i].getCooldown() <= 0)
+                        else
                         {
                             stored = m_toDoGoals[i];
                         }

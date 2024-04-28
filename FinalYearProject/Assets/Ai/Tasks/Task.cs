@@ -37,6 +37,7 @@ public class Task//Create a cooldown period for tasks if they fail
     {
         m_PreRequisite = new List<string>();
         m_executionStarted = false;
+        m_failed = false;
     }
 
     public void UpdatecoolDownPeriod()
