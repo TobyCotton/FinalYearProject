@@ -21,7 +21,7 @@ public class StoreRoomScript : Building
 
     void Update()
     {
-        if(!m_merchant)
+        if(!m_merchant)//Null check(merchant is the only one we need to directly give tasks to)
         {
             FindMerchant();
         }
@@ -32,7 +32,7 @@ public class StoreRoomScript : Building
                 m_requested = true;
                 if (m_merchant.PriorityChecker(new Sell()))
                 {
-                    m_merchant.AddToTaskList(new Sell("Wheat", m_merchant, this), 0);
+                    m_merchant.AddToTaskList(new Sell("Wheat", m_merchant, this), 0);//Pass name as item could be taken before merchent gets here whereas there will still be an item of this name here
                     m_merchant.SetTaskList();
                 }
                 else
@@ -73,7 +73,7 @@ public class StoreRoomScript : Building
     {
         MerchantAI[] merchants = Object.FindObjectsOfType<MerchantAI>();
 #pragma warning disable
-        for (int i = 0; i < merchants.Length; i++)
+        for (int i = 0; i < merchants.Length; i++)//disable warning as warning comes up as we always leave this function early
         {
             m_merchant = merchants[i];
             return;

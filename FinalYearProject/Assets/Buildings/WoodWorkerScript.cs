@@ -17,7 +17,7 @@ public class WoodWorkerScript : Building
     // Update is called once per frame
     void Update()
     {
-        if (!m_Wittler)
+        if (!m_Wittler)//Null check
         {
             FindWittler();
         }

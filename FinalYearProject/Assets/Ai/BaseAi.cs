@@ -11,7 +11,7 @@ using UnityEngine.SocialPlatforms.Impl;
 public class BaseAi : MonoBehaviour
 {
     protected List<Task> m_availableActions = new List<Task>();
-    protected List<Task> m_goals = new List<Task>();
+    protected List<Task> m_goals = new List<Task>();//Could be used for possible expansion (significantly more goals with the same effect)
     protected List<Task> m_toDoGoals = new List<Task>();
     public NavMeshAgent m_agent;
     protected Building m_work;
@@ -162,7 +162,7 @@ public class BaseAi : MonoBehaviour
                 m_tasks.Add(stored);
                 m_skip = true;
             }
-            if (!m_skip)//Don't skip task
+            if (!m_skip)//Don't skip task (skip if list to do hasnt been calculated)
             {
                 m_tasks[m_tasks.Count-1].setTime(m_tasks[m_tasks.Count - 1].getTime() - Time.deltaTime);
                 if (m_tasks[m_tasks.Count - 1].getTime() <= 0.0f && m_tasks[taskLength - 1].Executing())
@@ -270,7 +270,7 @@ public class BaseAi : MonoBehaviour
         m_multipleIdle = false;
         m_taskListOptions.Clear();
     }
-    protected List<Task> FillTaskCopy(Task[] toCopy)
+    protected List<Task> FillTaskCopy(Task[] toCopy)//Using arrays and list as array's can't be changed later by reference but lists can
     {
         List<Task> temp = new List<Task>();
         for(int i = 0;i < toCopy.Length; i++)
@@ -303,11 +303,11 @@ public class BaseAi : MonoBehaviour
         return false;
     }
 
-    protected bool CheckPrerequisite(Task goal, int listIncrement)
+    protected bool CheckPrerequisite(Task goal, int listIncrement)//Do we have a prerequisite
     {
         if (goal.getPrerequisite().Count == 0)
         {
-            if (m_taskListOptions.Count == 0)
+            if (m_taskListOptions.Count == 0)//Make sure we have begun the list
             {
                 m_taskListOptions.Add(new List<Task>());
             }
@@ -340,7 +340,7 @@ public class BaseAi : MonoBehaviour
             m_taskListOptions[listIncrement].Add(goal);
         }
     }
-    public void ToggleMesh()
+    public void ToggleMesh()//Toggle each time we do a task
     {
         if(m_visible)
         {
@@ -353,7 +353,7 @@ public class BaseAi : MonoBehaviour
             GetComponent<MeshRenderer>().enabled = true;
         }
     }
-    public void CantComplete()
+    public void CantComplete()//Not a valid task to do at this time (something has changed)
     {
         m_tasks[0].setWeight(false);
         m_tasks[0].setWeight(m_tasks[0].getWeight()-1);

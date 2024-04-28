@@ -6,7 +6,7 @@ using TMPro;
 
 public class AdventurerAI : BaseAi
 {
-    public TMP_Text m_task;
+    public TMP_Text m_task;//These 3 cannot be in base class due to initialization errors on start
     public TMP_Text m_Goal;
     public TMP_Text m_job;
     public AdventurerAI()
@@ -60,7 +60,7 @@ public class AdventurerAI : BaseAi
         }
     }
 
-    public void AddToTaskList(Task goal, int listIncrement)
+    public void AddToTaskList(Task goal, int listIncrement)//Some sections specific to class so cannot be in Parent
     {
         List<Task[]> saveBank = new List<Task[]>();
         bool triggerSave = false;
@@ -98,7 +98,7 @@ public class AdventurerAI : BaseAi
                         found = m_taskListOptions.Count - incrementer;
                         triggerSave = true;
                     }
-                    switch (m_availableActions[j].getTaskName())
+                    switch (m_availableActions[j].getTaskName())//List of tasks I can do (not goals)
                     {
                         case "GetPickaxe":
                             for (int k = 0; k < temp; k++)

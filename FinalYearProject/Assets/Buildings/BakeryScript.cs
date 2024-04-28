@@ -21,16 +21,16 @@ public class BakeryScript : Building
 
     void Update()
     {
-        if(!m_Baker)
+        if(!m_Baker)//Null check
         {
             FindBaker();
         }
         if(m_Baker)
         {
-            if((m_foodCount < m_IdealFoodCount && !m_requested) || m_foodCount == 0)
+            if((m_foodCount < m_IdealFoodCount && !m_requested) || m_foodCount == 0)//only ask for food task when needed and not already requested
             {
                 float priority = 2.0f;
-                if(m_foodCount == 0)
+                if(m_foodCount == 0)//Huge priority
                 {
                     priority = 500.0f;
                 }

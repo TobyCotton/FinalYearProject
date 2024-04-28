@@ -29,7 +29,7 @@ public class BlacksmithScript : Building
     // Update is called once per frame
     void Update()
     {
-        if (!m_Smithy)
+        if (!m_Smithy)//Null check
         {
             FindBlacksmith();
         }

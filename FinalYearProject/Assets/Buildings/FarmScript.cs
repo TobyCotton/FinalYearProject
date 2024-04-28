@@ -24,7 +24,7 @@ public class FarmScript : Building
         m_Timer -= Time.deltaTime;
         if (m_Timer <= 0 && !m_requested)
         {
-            if(!m_farmer)
+            if(!m_farmer)// Null check
             {
                 FindFarmer();
             }

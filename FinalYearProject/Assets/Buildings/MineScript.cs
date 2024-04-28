@@ -23,7 +23,7 @@ public class MineScript : Building
         m_Timer -= Time.deltaTime;
         if (m_Timer <= 0 && !m_requested)
         {
-            if (!m_adventurer)
+            if (!m_adventurer)//Null check
             {
                 FindAdventurer();
             }
