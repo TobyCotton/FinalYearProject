@@ -42,8 +42,6 @@ public class CreateHandle : Task
     }
     public override bool Executing()
     {
-        m_WoodWorkerScript.m_Handles++;
-        m_WoodWorkerScript.setHandleRequested(false);
         Item toRemove = null;
         foreach (Item item in m_baseAi.getItems())
         {
@@ -57,6 +55,8 @@ public class CreateHandle : Task
             TaskFailed();
             return false;
         }
+        m_WoodWorkerScript.m_Handles++;
+        m_WoodWorkerScript.setHandleRequested(false);
         m_baseAi.getItems().Remove(toRemove);
         return true;
     }

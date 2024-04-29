@@ -44,8 +44,6 @@ public class CreateAxe : Task
     }
     public override bool Executing()
     {
-        m_BlacksmithScript.m_Axes++;
-        m_BlacksmithScript.setAxeRequested(false);
         Item toRemove = null;
         Item toRemove2 = null;
         foreach (Item item in m_baseAi.getItems())
@@ -60,7 +58,6 @@ public class CreateAxe : Task
             TaskFailed();
             return false;
         }
-        m_baseAi.getItems().Remove(toRemove);
         foreach (Item item in m_baseAi.getItems())
         {
             if (toRemove2 == null && item.m_name == "Handle")
@@ -73,6 +70,9 @@ public class CreateAxe : Task
             TaskFailed();
             return false;
         }
+        m_BlacksmithScript.m_Axes++;
+        m_BlacksmithScript.setAxeRequested(false);
+        m_baseAi.getItems().Remove(toRemove);
         m_baseAi.getItems().Remove(toRemove2);
         return true;
     }

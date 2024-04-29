@@ -44,8 +44,6 @@ public class CreateChisel : Task
     }
     public override bool Executing()
     {
-        m_BlacksmithScript.m_Chisels++;
-        m_BlacksmithScript.setChiselRequested(false);
         Item toRemove = null;
         Item toRemove2 = null;
         foreach (Item item in m_baseAi.getItems())
@@ -69,6 +67,8 @@ public class CreateChisel : Task
             TaskFailed();
             return false;
         }
+        m_BlacksmithScript.m_Chisels++;
+        m_BlacksmithScript.setChiselRequested(false);
         m_baseAi.getItems().Remove(toRemove);
         m_baseAi.getItems().Remove(toRemove2);
         return true;

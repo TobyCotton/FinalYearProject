@@ -45,6 +45,18 @@ public class Sell : Task
         if (toRemove != null)
         {
             m_storeRoom.getStored().Remove(toRemove);
+            if(m_ItemName == "Wheat")
+            {
+                m_storeRoom.m_WheatStored--;
+            }
+            else if (m_ItemName == "Ore")
+            {
+                m_storeRoom.m_OreStored--;
+            }
+            else
+            {
+                m_storeRoom.m_WoodStored--;
+            }
             MarketScript addMoney = m_baseAi.getWork().GetComponent<MarketScript>();
             if (addMoney != null)
             {
